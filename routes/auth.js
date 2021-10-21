@@ -8,20 +8,26 @@ const saltRounds = 10;
 /* GET users listing. */
 router.post('/signup', (req, res, next) => {
   const { email, passwordUnhashed } = req.body;
-  bcryptjs
-    .genSalt(saltRounds)
-    .then((salt) => bcryptjs.hash(passwordUnhashed, salt))
-    .then((hashedPassword) => {
-      return User.create({
-        email,
-        passwordHash: hashedPassword,
-      });
-    })
-    .then((userFromDb) => {
-      req.session.currentUser = userFromDb;
-      res.json({ status: 200 });
-    })
-    .catch((err) => console.log('something didnt work: ', err));
+  User.findOne({ email }).then((foundUser) => {
+    if (foundUser) {
+      res.json({ success: false, error: 'existingEmail' });
+    } else {
+      bcryptjs
+        .genSalt(saltRounds)
+        .then((salt) => bcryptjs.hash(passwordUnhashed, salt))
+        .then((hashedPassword) => {
+          return User.create({
+            email,
+            passwordHash: hashedPassword,
+          });
+        })
+        .then((userFromDb) => {
+          req.session.currentUser = userFromDb;
+          res.json({ success: true, user: userFromDb });
+        })
+        .catch((err) => console.log('something didnt work: ', err));
+    }
+  });
 });
 
 router.post('/login', (req, res, next) => {
@@ -37,12 +43,17 @@ router.post('/login', (req, res, next) => {
         msg: 'everythings alright, you wonderful hooman!',
       });
     } else {
+      req.session.currentUser = undefined;
       res.json({
         status: 500,
         msg: 'you put in the wrong password or email, you ...!',
       });
     }
   });
+});
+router.get('/logout', (req, res, next) => {
+  req.session.currentUser = undefined;
+  res.json({ message: 'user is signed out!' });
 });
 
 module.exports = router;

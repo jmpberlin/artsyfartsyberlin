@@ -1,5 +1,6 @@
 body {
   margin: 0;
+
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -29,8 +30,9 @@ code {
   width: 320px;
   border: 2px dotted black;
 }
-.gradientbackground {
+.gradient {
   border-radius: 15px;
+
   background: linear-gradient(
     rgba(255, 168, 168, 0.6),
     rgba(110, 250, 255, 0.6)

@@ -12,7 +12,7 @@ axios
   .then((res) => {
     ReactDOM.render(
       <Router>
-        <App res={res.data.text} />
+        <App currentUser={res.data.currentUser} />
       </Router>,
       document.getElementById('root')
     );

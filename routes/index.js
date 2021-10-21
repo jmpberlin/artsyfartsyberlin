@@ -3,8 +3,11 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/checkuser', function (req, res, next) {
-  console.log('this worked!');
-  res.json({ text: 'Hola from the Backendos' });
+  if (req.session.currentUser) {
+    res.json({ currentUser: req.session.currentUser });
+  } else {
+    res.json({ currentUser: undefined });
+  }
 });
 
 module.exports = router;

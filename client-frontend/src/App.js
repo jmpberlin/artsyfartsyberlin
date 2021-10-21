@@ -1,11 +1,11 @@
 import './App.css';
 import MainNavbar from './components/navbar/MainNavbar';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
 function App(props) {
   return (
     <div>
-      <MainNavbar></MainNavbar>
+      <MainNavbar currentUser={props.currentUser}></MainNavbar>
       <Switch>
         {/* <Route exact path='/testroute' component={() => <h1>Hallo</h1>}></Route> */}
       </Switch>
