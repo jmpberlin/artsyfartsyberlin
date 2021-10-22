@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import ErrorMessage from './ErrorMessage';
 
 import axios from 'axios';
 
@@ -11,9 +12,13 @@ const LoginBox = (props) => {
   const [email, setEmail] = useState('');
   const [passwordUnhashed, setPassword] = useState('');
   const [formIsValid, setFormIsValid] = useState(false);
+  const [error, setError] = useState(null);
   const onChangeHandler = (e) => {
     if (e.target.name === 'email') {
       setEmail(e.target.value);
+      if (email.length > 0) {
+        setError(null);
+      }
       if (email.trim().length > 0) {
         setFormIsValid(true);
       } else {
@@ -27,8 +32,13 @@ const LoginBox = (props) => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     axios.post('/auth/login', { email, passwordUnhashed }).then((resFromDb) => {
-      console.log('I got an answer from the BACKEND!');
-      console.log(resFromDb);
+      if (resFromDb.data.success) {
+        props.onLoginSuccess();
+      }
+      if (resFromDb.data.success === false) {
+        setError({ msg: resFromDb.data.message });
+        setPassword('');
+      }
     });
   };
   return (
@@ -52,7 +62,11 @@ const LoginBox = (props) => {
             type='password'
             name='passwordUnhashed'
             id='password'
+            value={passwordUnhashed}
           />
+
+          <br />
+          {error && <ErrorMessage msg={error.msg}></ErrorMessage>}
           <br />
           <button
             disabled={!formIsValid}

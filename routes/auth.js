@@ -32,24 +32,33 @@ router.post('/signup', (req, res, next) => {
 
 router.post('/login', (req, res, next) => {
   const { email, passwordUnhashed } = req.body;
-  User.findOne({ email }).then((userFromDb) => {
-    const hash = userFromDb.passwordHash;
-    const verifyPassword = bcryptjs.compareSync(passwordUnhashed, hash);
+  User.findOne({ email })
+    .then((userFromDb) => {
+      const hash = userFromDb.passwordHash;
+      const verifyPassword = bcryptjs.compareSync(passwordUnhashed, hash);
 
-    if (verifyPassword) {
-      req.session.currentUser = userFromDb;
+      if (verifyPassword) {
+        req.session.currentUser = userFromDb;
+        res.json({
+          success: true,
+          msg: 'everythings alright, you wonderful hooman!',
+        });
+      } else {
+        console.log('i ran because email and password are not correct');
+        req.session.currentUser = undefined;
+        res.json({
+          success: false,
+          message: 'Email or Password is wrong. Try Again!',
+        });
+      }
+    })
+    .catch((err) => {
       res.json({
-        status: 200,
-        msg: 'everythings alright, you wonderful hooman!',
+        success: false,
+        message: 'Email or Password is wrong. Try Again!',
       });
-    } else {
-      req.session.currentUser = undefined;
-      res.json({
-        status: 500,
-        msg: 'you put in the wrong password or email, you ...!',
-      });
-    }
-  });
+      console.log('this is the error: ', err);
+    });
 });
 router.get('/logout', (req, res, next) => {
   req.session.currentUser = undefined;

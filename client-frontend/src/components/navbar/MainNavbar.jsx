@@ -15,6 +15,7 @@ const MainNavbar = (props) => {
       return;
     }
     setUserlogin(!userLogin);
+
     if (userRegister) {
       setUserRegister(false);
     }
@@ -33,15 +34,18 @@ const MainNavbar = (props) => {
     setUserRegister(false);
   };
   const onLogoutHandler = () => {
-    console.log('i ran!');
     setLoggedInUser(undefined);
     setShowAccount(false);
+  };
+  const loginSuccessHandler = () => {
+    setLoggedInUser(true);
+    setUserlogin(false);
   };
   return (
     <>
       <div className='borderbox flexwrapper'>
         <div>
-          <Link to='/home'>
+          <Link to='/'>
             <button className='logo gradient hover:bg-purple-400  p-2 sm:p-3 md:p-4'>
               Logo
             </button>
@@ -51,7 +55,7 @@ const MainNavbar = (props) => {
           <label className='hidden sm:inline md:inline' htmlFor='search'>
             search:
           </label>
-          <input className='rounded-md' id='search' type='search' />
+          <input className='rounded-md w-24' id='search' type='search' />
         </div>
         <div>
           <Link to='/login'>
@@ -71,7 +75,12 @@ const MainNavbar = (props) => {
           </Link>
         </div>
       </div>
-      {userLogin && <LoginBox onRegister={onRegisterHandler}></LoginBox>}
+      {userLogin && (
+        <LoginBox
+          onRegister={onRegisterHandler}
+          onLoginSuccess={loginSuccessHandler}
+        ></LoginBox>
+      )}
       {userRegister && (
         <RegisterBox
           onLogin={onLoginHandler}

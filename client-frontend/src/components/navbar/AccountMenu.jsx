@@ -4,7 +4,6 @@ import React from 'react';
 const AccountMenu = (props) => {
   const logoutClickHandler = () => {
     axios.get('/auth/logout').then((resFromDb) => {
-      console.log(resFromDb);
       props.onLogout();
     });
   };

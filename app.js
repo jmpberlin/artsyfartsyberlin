@@ -33,6 +33,8 @@ app.use('/users', usersRouter);
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 
+const itemsRoutes = require('./routes/items');
+app.use('/items', itemsRoutes);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
