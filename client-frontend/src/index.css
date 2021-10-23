@@ -32,11 +32,12 @@ code {
 }
 .gradient {
   border-radius: 15px;
-
+  background-color: rgb(248, 189, 121, 0.3);
+  /* 
   background: linear-gradient(
     rgba(255, 168, 168, 0.6),
     rgba(110, 250, 255, 0.6)
-  );
+  ); */
 }
 .logo {
   border-radius: 15px;

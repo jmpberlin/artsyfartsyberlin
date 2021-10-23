@@ -10,7 +10,9 @@ const ItemBox = (props) => {
       setAllItems(resFromDb.data);
     });
   }, []);
-
+  const addToCartHandler = (itemToAdd) => {
+    props.addToCart(itemToAdd);
+  };
   if (allItems.length === 0) {
     return (
       <div className='borderbox flexwrapper flex-col'>
@@ -29,9 +31,15 @@ const ItemBox = (props) => {
   }
   return (
     <div className='borderbox flexwrapper flex-col'>
-      <h2>Hallo from Itembox</h2>
+      <h2>Products</h2>
       {allItems.map((item) => {
-        return <SingleItem itemObj={item}></SingleItem>;
+        return (
+          <SingleItem
+            addToCard={addToCartHandler}
+            key={item._id}
+            itemObj={item}
+          ></SingleItem>
+        );
       })}
     </div>
   );

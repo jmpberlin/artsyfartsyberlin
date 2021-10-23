@@ -116,7 +116,7 @@ const RegisterBox = (props) => {
           {error && <ErrorMessage msg={error.message}></ErrorMessage>}
           <button
             disabled={!formIsValid}
-            className='gradient hover:bg-purple-400 p-2 sm:p-3 md:p-4 disabled:opacity-50'
+            className='gradient hover:bg-green-400 p-2 sm:p-3 md:p-4 disabled:opacity-50'
             type='submit'
           >
             create account!
@@ -126,7 +126,7 @@ const RegisterBox = (props) => {
       <div className='borderbox flexwrapper'>
         <h4>Already got an Account?</h4>
         <button
-          className='gradient hover:bg-purple-400 p-2 sm:p-3 md:p-4'
+          className='gradient hover:bg-green-400 p-2 sm:p-3 md:p-4'
           onClick={onLoginHandler}
         >
           Log In
