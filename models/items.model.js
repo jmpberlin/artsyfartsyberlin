@@ -5,6 +5,7 @@ const itemSchema = new Schema({
   name: { type: String, required: true },
   articleNumber: { type: Number },
   description: { type: String },
+  price: Number,
 });
 
 const Item = model('Item', itemSchema);

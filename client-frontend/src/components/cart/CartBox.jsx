@@ -17,23 +17,28 @@ const CartBox = () => {
 
   if (cartArr.length === 0) {
     return (
-      <div className='borderbox flexwrapper flex-col'>
+      <div className=''>
         <h4>Your Cart is currently empty!</h4>
       </div>
     );
   }
   return (
-    <div>
-      {cartArr.map((e) => {
-        return (
-          <CartItem
-            item={e.item}
-            quantity={e.quantity}
-            key={e.item.articleNumber}
-          ></CartItem>
-        );
-      })}
-    </div>
+    <>
+      <div>
+        {cartArr.map((e) => {
+          return (
+            <CartItem
+              item={e.item}
+              quantity={e.quantity}
+              key={e.item.articleNumber}
+            ></CartItem>
+          );
+        })}
+      </div>
+      <div className='borderbox flexwrapper flex-col'>
+        <h2>here goes the calculator</h2>
+      </div>
+    </>
   );
 };
 

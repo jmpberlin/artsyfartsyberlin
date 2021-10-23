@@ -11,64 +11,67 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/online-shop', {
 
 const items = [
   {
-    name: 'House',
+    name: 'Sneaker',
     articleNumber: Math.random() * 100000000000000000,
     description:
       'en an unknown printer took a galley of type and scrambled it to make a typerema',
+    price: 9500,
   },
   {
-    name: 'Dog',
+    name: 'Boots',
     articleNumber: Math.random() * 100000000000000000,
     description:
       'en an unknown printer took a galley of type and scrambled it to make a typerema',
+    price: 12000,
   },
   {
     name: 'Phone',
     articleNumber: Math.random() * 100000000000000000,
     description:
       'en an unknown printer took a galley of type and scrambled it to make a typerema',
+    price: 40000,
   },
   {
     name: 'Burger',
     articleNumber: Math.random() * 100000000000000000,
     description:
       'en an unknown printer took a galley of type and scrambled it to make a typerema',
+    price: 800,
   },
   {
-    name: 'Greencolor',
+    name: 'iPhone 3G',
     articleNumber: Math.random() * 100000000000000000,
     description:
       'en an unknown printer took a galley of type and scrambled it to make a typerema',
+    price: 90000,
   },
   {
-    name: 'Fun',
+    name: 'MacBook Pro 2010',
     articleNumber: Math.random() * 100000000000000000,
     description:
       'en an unknown printer took a galley of type and scrambled it to make a typerema',
+    price: 85000,
   },
   {
     name: 'Cat',
     articleNumber: Math.random() * 100000000000000000,
     description:
       'en an unknown printer took a galley of type and scrambled it to make a typerema',
+    price: 12345,
   },
   {
     name: 'Trip',
     articleNumber: Math.random() * 100000000000000000,
     description:
       'en an unknown printer took a galley of type and scrambled it to make a typerema',
+    price: 100000,
   },
   {
-    name: 'Beer',
+    name: 'Una caña',
     articleNumber: Math.random() * 100000000000000000,
     description:
       'en an unknown printer took a galley of type and scrambled it to make a typerema',
-  },
-  {
-    name: 'House',
-    articleNumber: Math.random() * 100000000000000000,
-    description:
-      'en an unknown printer took a galley of type and scrambled it to make a typerema',
+    price: 100,
   },
 ];
 
