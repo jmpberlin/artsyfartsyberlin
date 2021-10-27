@@ -9,13 +9,14 @@
 
 const { Schema, model } = require('mongoose');
 const orderSchema = new Schema({
-  cartOwner: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  cartUser: { type: Schema.Types.ObjectId, ref: 'User' },
+  cartSession: String,
   paid: Boolean,
   items: [
     { item: { type: Schema.Types.ObjectId, ref: 'Item' }, quantity: Number },
   ],
-  status:String,
-  
+  status: String,
+
   // passwordHash: {
   //   type: String,
   //   required: [true, 'PasswordHash is required!'],
