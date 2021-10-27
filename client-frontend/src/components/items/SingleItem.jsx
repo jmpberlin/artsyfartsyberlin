@@ -22,10 +22,18 @@ const SingleItem = (props) => {
       setQuantity(0);
     }
   };
+  const priceCalculator = (cents) => {
+    if (cents % 10 === 0) {
+      return cents / 100 + '.' + '00' + ' €';
+    } else {
+      return cents / 100 + ' €';
+    }
+  };
   return (
     <div className='borderbox flexwrapper flex w-full justify-evenly m-auto'>
-      <div className='gradient hover:bg-green-400 p-2 sm:p-3 md:p-4'>
-        {props.itemObj.name}
+      <div className='gradient hover:bg-green-400 p-2 sm:p-3 md:p-4 flex-col'>
+        <div>{props.itemObj.name}</div>
+        <div>{priceCalculator(props.itemObj.price)}</div>
       </div>
       {/* <div className='p-3 m-2'>
         {props.itemObj.description.split(' ').slice(0, 5).join(' ') + '...'}

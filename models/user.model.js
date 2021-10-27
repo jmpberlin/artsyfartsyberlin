@@ -25,8 +25,11 @@ const userSchema = new Schema({
     country: { type: String, default: '' },
     city: { type: String, default: '' },
   },
+  shoppingCart: [],
 });
 
 const User = model('User', userSchema);
 
 module.exports = User;
+
+// shopping cart: { item: { type: Object }, quantity: Number }

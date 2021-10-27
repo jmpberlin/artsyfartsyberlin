@@ -6,7 +6,7 @@ router.get('/checkuser', function (req, res, next) {
   if (req.session.currentUser) {
     res.json({ currentUser: req.session.currentUser });
   } else {
-    res.json({ currentUser: undefined });
+    res.json({ currentUser: null });
   }
 });
 
