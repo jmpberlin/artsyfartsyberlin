@@ -20,7 +20,7 @@ router.get('/checkuser', function (req, res, next) {
         });
       }
       if (answerFromDb !== null) {
-        req.session.currentOrder = req.sessionID;
+        req.session.currentOrder = answerFromDb._id;
         req.session.save();
       }
     })

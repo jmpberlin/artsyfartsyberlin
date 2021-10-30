@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user.model');
 const bcryptjs = require('bcryptjs');
+const Order = require('../models/order.model');
 const saltRounds = 10;
 
 /* GET users listing. */
@@ -23,7 +24,16 @@ router.post('/signup', (req, res, next) => {
         })
         .then((userFromDb) => {
           req.session.currentUser = userFromDb;
-          res.json({ success: true, user: userFromDb });
+          return userFromDb;
+        })
+        .then((userFromDb) => {
+          // IF YOU CREATE A USER THE CURRENT ORDER WILL BE ASSIGNED TO THE USER
+          const cartId = req.session.currentOrder;
+          Order.findByIdAndUpdate(cartId, { cartUser: userFromDb._id }).then(
+            (resFromDb) => {
+              res.json({ success: true, user: userFromDb });
+            }
+          );
         })
         .catch((err) => console.log('something didnt work: ', err));
     }
@@ -39,10 +49,16 @@ router.post('/login', (req, res, next) => {
 
       if (verifyPassword) {
         req.session.currentUser = userFromDb;
-        res.json({
-          success: true,
-          msg: 'everythings alright, you wonderful hooman!',
-        });
+        const cartId = req.session.currentOrder;
+        // IF YOU LOGIN THE CURRENT ORDER WILL BE ASSIGNED TO THE USER
+        Order.findByIdAndUpdate(cartId, { cartUser: userFromDb._id }).then(
+          (resFromDb) => {
+            res.json({
+              success: true,
+              msg: 'everythings alright, you wonderful hooman!',
+            });
+          }
+        );
       } else {
         console.log('i ran because email and password are not correct');
         req.session.currentUser = undefined;

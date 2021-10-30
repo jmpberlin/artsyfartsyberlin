@@ -11,33 +11,39 @@ function App(props) {
 
   const addToCartHandler = (itemToAdd) => {
     setPassedItem({ itemToAdd });
-    let user;
+
     axios
       .get('/checkuser')
       .then((receivedUser) => {
         return receivedUser;
       })
       .then((userFromBefore) => {
-        if (userFromBefore.data.currentUser === null) {
-          axios
-            .post('/items/addToSessionCart', itemToAdd)
-            .then((resFromDb) => {})
-            .catch((err) =>
-              console.log(
-                'this is error caught on "add to session Cart path":',
-                err
-              )
-            );
-        } else {
-          let userId = userFromBefore.data.currentUser._id;
-          itemToAdd.currentUser = userId;
-          axios
-            .post('/items/addToDbCart', itemToAdd)
-            .then((resFromDb) => {})
-            .catch((err) => {
-              console.log('this is a error caught "add to db Cart path"', err);
-            });
-        }
+        // HERE COMES THE ROUTE FOR SAVING SOMETHING IN AN ORDER
+        console.log(itemToAdd);
+        axios.post('/items/addToOrder', itemToAdd).then((resFromDb) => {
+          console.log(resFromDb);
+        });
+        // ALL THE ROUTES FOR SAVING SOMETHING IN THE SESSION
+        // if (userFromBefore.data.currentUser === null) {
+        //   axios
+        //     .post('/items/addToSessionCart', itemToAdd)
+        //     .then((resFromDb) => {})
+        //     .catch((err) =>
+        //       console.log(
+        //         'this is error caught on "add to session Cart path":',
+        //         err
+        //       )
+        //     );
+        // } else {
+        //   let userId = userFromBefore.data.currentUser._id;
+        //   itemToAdd.currentUser = userId;
+        //   axios
+        //     .post('/items/addToDbCart', itemToAdd)
+        //     .then((resFromDb) => {})
+        //     .catch((err) => {
+        //       console.log('this is a error caught "add to db Cart path"', err);
+        //     });
+        // }
       });
   };
   return (

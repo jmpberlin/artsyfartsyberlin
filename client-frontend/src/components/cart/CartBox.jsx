@@ -6,9 +6,9 @@ const CartBox = () => {
   const [cartArr, setCartArr] = useState([]);
 
   useEffect(() => {
-    axios.get('/items/sessionCart').then((resFromDb) => {
-      if (resFromDb.data.sessionCart !== undefined) {
-        setCartArr(resFromDb.data.sessionCart);
+    axios.get('/items/userOrder').then((resFromDb) => {
+      if (resFromDb.data.items !== undefined) {
+        setCartArr(resFromDb.data.items);
       } else {
         setCartArr([]);
       }

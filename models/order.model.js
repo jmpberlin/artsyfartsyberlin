@@ -13,7 +13,11 @@ const orderSchema = new Schema({
   cartSession: String,
   paid: Boolean,
   items: [
-    { item: { type: Schema.Types.ObjectId, ref: 'Item' }, quantity: Number },
+    {
+      item: { type: Schema.Types.ObjectId, ref: 'Item' },
+      quantity: Number,
+      _id: false,
+    },
   ],
   status: String,
 

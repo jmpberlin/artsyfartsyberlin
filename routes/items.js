@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const Item = require('../models/items.model');
 const User = require('../models/user.model');
+const Order = require('../models/order.model');
 
 router.get('/allItems', (req, res, next) => {
   Item.find()
@@ -13,9 +14,37 @@ router.get('/allItems', (req, res, next) => {
     });
 });
 
+/// ADD TO DB ORDER ROUTE!!
+
+router.post('/addToOrder', (req, res, next) => {
+  const itemId = req.body.item._id;
+  const orderId = req.session.currentOrder;
+  Order.findOne({ _id: orderId }).then((currentOrder) => {
+    let indexOfArt = currentOrder.items.findIndex(
+      (e) => e.item.toString() === itemId
+    );
+    if (indexOfArt === -1) {
+      Order.findByIdAndUpdate(orderId, {
+        $push: {
+          items: { item: req.body.item._id, quantity: req.body.quantity },
+        },
+      }).then((resFromDb) => {
+        //
+      });
+    }
+    if (indexOfArt !== -1) {
+      Order.findByIdAndUpdate(orderId, {
+        $inc: { [`items.${indexOfArt}.quantity`]: req.body.quantity },
+      }).then((resFromDb) => {});
+    }
+  });
+});
+
+// ADD TO SESSION CART BEFORE ORDER MODEL EXISTED // DEPRICATED _ DELETE AFTER A WHILE!
+
 router.post('/addToSessionCart', (req, res, next) => {
   const quantityAdded = req.body.quantity;
-  console.log(quantityAdded);
+
   const item = req.body.item;
   const artNum = req.body.item.articleNumber;
 
@@ -39,6 +68,8 @@ router.post('/addToSessionCart', (req, res, next) => {
   }
   res.json({ text: 'this worked out fine' });
 });
+
+// ADD TO DB CART - BEFORE ORDER MODEL EXISTED! // DEPRICATED _ DELETE AFter A WHILE!
 
 router.post('/addToDbCart', (req, res, next) => {
   const userId = req.body.currentUser;
@@ -100,10 +131,21 @@ router.post('/addToDbCart', (req, res, next) => {
           console.log(answer);
         })
         .catch((err) => console.log(err));
-      //push the itemObj to the array.
     }
   });
 });
+
+// GET ALL ITEMS OUT OF THE USER ORDER ENTRY IN THE DB!
+router.get('/userOrder', (req, res, next) => {
+  const orderId = req.session.currentOrder;
+  Order.findById(orderId)
+    .populate('items.item')
+    .then((userOrderFromDb) => {
+      res.json(userOrderFromDb);
+    });
+});
+
+// GET THE SESSION CART _ DEPRECATED _ DELETE AFTER A WHILE
 router.get('/sessionCart', (req, res, next) => {
   res.json({ sessionCart: req.session.cartArray });
 });
