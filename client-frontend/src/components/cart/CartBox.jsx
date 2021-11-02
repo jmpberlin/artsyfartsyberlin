@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CartItem from './CartItem';
+import CartSum from './CartSum';
 
 const CartBox = () => {
   const [cartArr, setCartArr] = useState([]);
+  const [updatedCart, setUpdatedCart] = useState(true);
 
   useEffect(() => {
     axios.get('/items/userOrder').then((resFromDb) => {
@@ -13,7 +15,17 @@ const CartBox = () => {
         setCartArr([]);
       }
     });
-  }, []);
+  }, [updatedCart]);
+  const decreaseQuantity = (obj) => {
+    axios.post('/items/setQuantityOfCartItem', { obj }).then((resFromDb) => {
+      setUpdatedCart(!updatedCart);
+    });
+  };
+  const increaseQuantity = (obj) => {
+    axios.post('/items/setQuantityOfCartItem', { obj }).then((resFromDb) => {
+      setUpdatedCart(!updatedCart);
+    });
+  };
 
   if (cartArr.length === 0) {
     return (
@@ -31,13 +43,14 @@ const CartBox = () => {
               item={e.item}
               quantity={e.quantity}
               key={e.item.articleNumber}
+              decQuantity={decreaseQuantity}
+              incQuantity={increaseQuantity}
             ></CartItem>
           );
         })}
       </div>
-      <div className='borderbox flexwrapper flex-col'>
-        <h2>here goes the calculator</h2>
-      </div>
+
+      <CartSum items={cartArr}></CartSum>
     </>
   );
 };

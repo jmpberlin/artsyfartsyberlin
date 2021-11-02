@@ -145,6 +145,35 @@ router.get('/userOrder', (req, res, next) => {
     });
 });
 
+// IN THE CART ADD AND DELETE ITEMS : // WORK ON THIS ROUTE TOMORROW!
+
+router.post('/setQuantityOfCartItem', (req, res, next) => {
+  console.log('==========>>>>> here comes req.body');
+  console.log(req.body);
+  const orderId = req.session.currentOrder;
+  const newQuan = req.body.obj.quantity;
+  const articleId = req.body.obj.item;
+
+  console.log('this is the current Order: ', req.session.currentOrder);
+  Order.findOne({ _id: orderId })
+    .then((resFromDb) => {
+      const index = resFromDb.items.findIndex(
+        (e) => e.item.toString() === articleId
+      );
+      return index;
+    })
+    .then((index) => {
+      Order.findOneAndUpdate(orderId, {
+        $set: { [`items.${index}.quantity`]: newQuan },
+      }).then((returnValue) => {
+        console.log('this is the returnValue from The backend:', returnValue);
+        res.json({ message: 'set the new value', sucess: true });
+      });
+    });
+  // FIND THE ARTICLE BY ID AND SET THE QUANTITY TO THE NEW VALUE
+  // Order.findOneAndUpdate(orderId, {$set:{"items.item":}});
+});
+
 // GET THE SESSION CART _ DEPRECATED _ DELETE AFTER A WHILE
 router.get('/sessionCart', (req, res, next) => {
   res.json({ sessionCart: req.session.cartArray });

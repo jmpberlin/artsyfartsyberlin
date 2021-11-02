@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 
 const CartItem = (props) => {
   const priceCalculator = (cents) => {
@@ -8,7 +9,14 @@ const CartItem = (props) => {
       return cents / 100 + ' €';
     }
   };
+  useEffect(() => {}, []);
 
+  const increaseHandler = (quantityToInc) => {
+    props.incQuantity(quantityToInc);
+  };
+  const decreaseHandler = (quantityToDec) => {
+    props.decQuantity(quantityToDec);
+  };
   return (
     <div className='borderbox flexwrapper flex-row'>
       <div className='hover:bg-green-400 p-2 sm:p-3 md:p-4 border-2 rounded-md'>
@@ -18,8 +26,33 @@ const CartItem = (props) => {
       <div className='hover:bg-green-400 p-2 sm:p-3 md:p-4'>
         {priceCalculator(props.item.price)}
       </div>
-      <div className='hover:bg-green-400 p-2 sm:p-3 md:p-4'>
-        <p>x {props.quantity}</p>
+
+      <div className='flex row'>
+        <button
+          onClick={() => {
+            decreaseHandler({
+              quantity: props.quantity - 1,
+              item: props.item._id,
+            });
+          }}
+          className='rounded-full p-2 border-2 hover:bg-green-400'
+        >
+          -
+        </button>
+
+        <div className='inline-block p-2 m-2 '>{props.quantity}</div>
+
+        <button
+          onClick={() => {
+            increaseHandler({
+              quantity: props.quantity + 1,
+              item: props.item._id,
+            });
+          }}
+          className='rounded-full p-2 border-2 hover:bg-green-400'
+        >
+          +
+        </button>
       </div>
 
       <div className='hover:bg-green-400 p-2 sm:p-3 md:p-4 border-2 rounded-md'>
