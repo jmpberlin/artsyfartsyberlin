@@ -17,14 +17,17 @@ const CartItem = (props) => {
   const decreaseHandler = (quantityToDec) => {
     props.decQuantity(quantityToDec);
   };
+  const deleteHandler = (articleId) => {
+    props.deleteArticle(articleId);
+  };
   return (
-    <div className='borderbox flexwrapper flex-row'>
+    <div className='flex justify-evenly flexwrapper flex-row mb-6'>
       <div className='hover:bg-green-400 p-2 sm:p-3 md:p-4 border-2 rounded-md'>
-        {props.item.name}
+        <p className='text-xs'> {props.item.name}</p>
       </div>
 
       <div className='hover:bg-green-400 p-2 sm:p-3 md:p-4'>
-        {priceCalculator(props.item.price)}
+        <p className='text-xs'> {priceCalculator(props.item.price)} </p>
       </div>
 
       <div className='flex row'>
@@ -37,10 +40,12 @@ const CartItem = (props) => {
           }}
           className='rounded-full p-2 border-2 hover:bg-green-400'
         >
-          -
+          <p className='text-xs'>-</p>
         </button>
 
-        <div className='inline-block p-2 m-2 '>{props.quantity}</div>
+        <div className='inline-block p-2 m-2 '>
+          <p className='text-xs'>{props.quantity}</p>
+        </div>
 
         <button
           onClick={() => {
@@ -51,12 +56,22 @@ const CartItem = (props) => {
           }}
           className='rounded-full p-2 border-2 hover:bg-green-400'
         >
-          +
+          <p className='text-xs'>+</p>
         </button>
       </div>
 
       <div className='hover:bg-green-400 p-2 sm:p-3 md:p-4 border-2 rounded-md'>
-        {priceCalculator(props.item.price * props.quantity)}
+        <p className='text-xs'>
+          {priceCalculator(props.item.price * props.quantity)}
+        </p>
+      </div>
+      <div
+        onClick={() => {
+          deleteHandler(props.item._id);
+        }}
+        className='hover:bg-green-400 p-2 sm:p-3 md:p-4 border-2 rounded-md'
+      >
+        <p className='text-xs'>X</p>
       </div>
     </div>
   );

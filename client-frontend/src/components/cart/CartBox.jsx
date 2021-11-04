@@ -3,7 +3,7 @@ import axios from 'axios';
 import CartItem from './CartItem';
 import CartSum from './CartSum';
 
-const CartBox = () => {
+const CartBox = (props) => {
   const [cartArr, setCartArr] = useState([]);
   const [updatedCart, setUpdatedCart] = useState(true);
 
@@ -26,17 +26,25 @@ const CartBox = () => {
       setUpdatedCart(!updatedCart);
     });
   };
-
+  const deleteHandler = (articleId) => {
+    axios
+      .post('/items/deleteFromCart', { articleId: articleId })
+      .then((resFromDb) => {
+        console.log(resFromDb);
+        props.passCartLenght(resFromDb.data.cartLength);
+        setUpdatedCart(!updatedCart);
+      });
+  };
   if (cartArr.length === 0) {
     return (
-      <div className=''>
+      <div className='m-2 p-2 sm:p-3 md:p-4 border-2 rounded-xl border-1 border-solid border-black'>
         <h4>Your Cart is currently empty!</h4>
       </div>
     );
   }
   return (
     <>
-      <div>
+      <div className='m-2 p-2 sm:p-3 md:p-4 border-2 rounded-xl border-1 border-solid border-black'>
         {cartArr.map((e) => {
           return (
             <CartItem
@@ -45,6 +53,7 @@ const CartBox = () => {
               key={e.item.articleNumber}
               decQuantity={decreaseQuantity}
               incQuantity={increaseQuantity}
+              deleteArticle={deleteHandler}
             ></CartItem>
           );
         })}

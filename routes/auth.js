@@ -60,7 +60,6 @@ router.post('/login', (req, res, next) => {
           }
         );
       } else {
-        console.log('i ran because email and password are not correct');
         req.session.currentUser = undefined;
         res.json({
           success: false,

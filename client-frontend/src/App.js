@@ -8,7 +8,10 @@ import axios from 'axios';
 
 function App(props) {
   const [passedItem, setPassedItem] = useState();
-
+  const [itemCartCount, setItemCartCount] = useState();
+  const passCartLength = (cartLength) => {
+    setItemCartCount(cartLength);
+  };
   const addToCartHandler = (itemToAdd) => {
     setPassedItem({ itemToAdd });
 
@@ -19,41 +22,29 @@ function App(props) {
       })
       .then((userFromBefore) => {
         // HERE COMES THE ROUTE FOR SAVING SOMETHING IN AN ORDER
-        console.log(itemToAdd);
+
         axios.post('/items/addToOrder', itemToAdd).then((resFromDb) => {
-          console.log(resFromDb);
+          console.log(resFromDb.data.cartLength);
+          setItemCartCount(resFromDb.data.cartLength);
         });
-        // ALL THE ROUTES FOR SAVING SOMETHING IN THE SESSION
-        // if (userFromBefore.data.currentUser === null) {
-        //   axios
-        //     .post('/items/addToSessionCart', itemToAdd)
-        //     .then((resFromDb) => {})
-        //     .catch((err) =>
-        //       console.log(
-        //         'this is error caught on "add to session Cart path":',
-        //         err
-        //       )
-        //     );
-        // } else {
-        //   let userId = userFromBefore.data.currentUser._id;
-        //   itemToAdd.currentUser = userId;
-        //   axios
-        //     .post('/items/addToDbCart', itemToAdd)
-        //     .then((resFromDb) => {})
-        //     .catch((err) => {
-        //       console.log('this is a error caught "add to db Cart path"', err);
-        //     });
-        // }
       });
   };
   return (
     <div>
-      <MainNavbar currentUser={props.currentUser}></MainNavbar>
+      <MainNavbar
+        currentUser={props.currentUser}
+        itemCartCount={itemCartCount}
+      ></MainNavbar>
       <Switch>
         <Route
           exact
           path='/cart'
-          component={() => <CartBox passedItem={passedItem}></CartBox>}
+          component={() => (
+            <CartBox
+              passCartLenght={passCartLength}
+              passedItem={passedItem}
+            ></CartBox>
+          )}
         ></Route>
         <Route
           path='/'

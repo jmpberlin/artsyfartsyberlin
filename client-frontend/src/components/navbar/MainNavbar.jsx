@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import LoginBox from './LoginBox';
 import RegisterBox from './RegisterBox';
 import AccountMenu from './AccountMenu';
+import NotificationBadge from 'react-notification-badge';
+import { Effect } from 'react-notification-badge';
+import axios from 'axios';
 
 const MainNavbar = (props) => {
   const [userLogin, setUserlogin] = useState(false);
   const [userRegister, setUserRegister] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(props.currentUser);
   const [showAccount, setShowAccount] = useState(false);
+  const [count, setCount] = useState(0);
+
   const loginClickHanlder = () => {
     if (loggedInUser) {
       setShowAccount(true);
@@ -71,6 +76,10 @@ const MainNavbar = (props) => {
           <Link to='/cart'>
             <button className='gradient hover:bg-green-400 p-2 sm:p-3 md:p-4'>
               Cart
+              <NotificationBadge
+                count={props.itemCartCount}
+                effect={Effect.SCALE}
+              />
             </button>
           </Link>
         </div>
