@@ -35,6 +35,9 @@ app.use('/auth', authRoutes);
 
 const itemsRoutes = require('./routes/items');
 app.use('/items', itemsRoutes);
+
+const stripeRoutes = require('./routes/stripe');
+app.use('/stripe', stripeRoutes);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

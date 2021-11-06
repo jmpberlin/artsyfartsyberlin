@@ -5,6 +5,8 @@ import ItemBox from './components/items/ItemBox';
 import { useState } from 'react';
 import CartBox from './components/cart/CartBox';
 import axios from 'axios';
+import PaymentCancel from './components/pay-gateway/PaymentCancel';
+import PaymentSuccess from './components/pay-gateway/PaymentSuccess';
 
 function App(props) {
   const [passedItem, setPassedItem] = useState();
@@ -51,6 +53,8 @@ function App(props) {
           exact
           component={() => <ItemBox addToCart={addToCartHandler}></ItemBox>}
         ></Route>
+        <Route component={PaymentSuccess} path='/success' exact></Route>
+        <Route component={PaymentCancel} path='/cancel' exact></Route>
         {/* <Route exact path='/testroute' component={() => <h1>Hallo</h1>}></Route> */}
       </Switch>
     </div>

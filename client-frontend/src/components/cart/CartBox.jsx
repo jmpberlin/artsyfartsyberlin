@@ -9,6 +9,9 @@ const CartBox = (props) => {
 
   useEffect(() => {
     axios.get('/items/userOrder').then((resFromDb) => {
+      if (resFromDb.data === null) {
+        return;
+      }
       if (resFromDb.data.items !== undefined) {
         setCartArr(resFromDb.data.items);
       } else {

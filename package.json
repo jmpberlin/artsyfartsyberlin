@@ -21,6 +21,7 @@
     "mongoose": "^6.0.10",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.13",
-    "react-notification-badge": "^1.5.1"
+    "react-notification-badge": "^1.5.1",
+    "stripe": "^8.186.1"
   }
 }
