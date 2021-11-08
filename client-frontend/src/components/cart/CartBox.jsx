@@ -38,6 +38,11 @@ const CartBox = (props) => {
         setUpdatedCart(!updatedCart);
       });
   };
+  const passStripeUrlHandler = (url) => {
+    console.log('this is the Stripe url in the Cartbox Component');
+    console.log(url);
+    props.passStripeUrl(url);
+  };
   if (cartArr.length === 0) {
     return (
       <div className='m-2 p-2 sm:p-3 md:p-4 border-2 rounded-xl border-1 border-solid border-black'>
@@ -62,7 +67,7 @@ const CartBox = (props) => {
         })}
       </div>
 
-      <CartSum items={cartArr}></CartSum>
+      <CartSum passStripeUrl={passStripeUrlHandler} items={cartArr}></CartSum>
     </>
   );
 };

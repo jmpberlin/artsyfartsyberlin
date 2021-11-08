@@ -14,8 +14,15 @@ const CartSum = (props) => {
     sum += item.item.price * item.quantity;
   });
   const formattedSum = priceCalculator(sum);
-  const checkoutClickHandler = () => {
-    axios.post('/stripe/create-checkout-session', { price: sum });
+  const checkoutClickHandler = (e) => {
+    e.preventDefault();
+
+    axios
+      .post('/stripe/create-checkout-session', { price: sum })
+      .then((resFromStripe) => {
+        console.log(resFromStripe.data.url);
+        props.passStripeUrl(resFromStripe.data.url);
+      });
   };
   return (
     <>

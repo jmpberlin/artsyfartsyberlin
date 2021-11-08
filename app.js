@@ -28,6 +28,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// CORS STUFF
+// DELETE THE LINES WHICH ARE COMMENTED OUT
+// app.use(function (req, res, next) {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header(
+//     'Access-Control-Allow-Headers',
+//     'Origin, X-Requested-With, Content-Type, Accept'
+//   );
+//   next();
+// });
+const cors = require('cors');
+app.use(cors());
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 const authRoutes = require('./routes/auth');

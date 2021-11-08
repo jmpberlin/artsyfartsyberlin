@@ -1,0 +1,52 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.modal {
+  position: fixed;
+  color: black;
+  top: 5vh;
+  bottom: 5vh;
+  left: 5vw;
+  right: 5vw;
+  z-index: 100;
+  overflow: hidden;
+  padding: 5px;
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px 5px rgb(0, 0, 0, 0.5);
+}
+
+.header {
+  padding: 1rem;
+}
+
+.header h2 {
+  margin: 0;
+  color: black;
+}
+
+.content {
+  padding: 1rem;
+  color: black;
+}
+
+.actions {
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+@media (min-width: 768px) {
+  .modal {
+    left: calc(50% - 20rem);
+    width: 40rem;
+  }
+}

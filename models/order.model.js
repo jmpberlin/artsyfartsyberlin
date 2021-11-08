@@ -20,6 +20,7 @@ const orderSchema = new Schema({
     },
   ],
   status: String,
+  stripe: { payment_intent: String, payment_status: String },
 
   // passwordHash: {
   //   type: String,
