@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
+
+import { Link } from 'react-router-dom';
 
 const CartItem = (props) => {
   const priceCalculator = (cents) => {
@@ -21,16 +22,19 @@ const CartItem = (props) => {
     props.deleteArticle(articleId);
   };
   return (
-    <div className='flex justify-evenly flexwrapper flex-row mb-6'>
-      <div className='hover:bg-green-400 p-2 sm:p-3 md:p-4 border-2 rounded-md'>
-        <p className='text-xs'> {props.item.name}</p>
+    <div className='flex justify-evenly flexwrapper flex-row mb-6 items-center'>
+      <div className='hover:bg-gray-400 p-2 sm:p-3 md:p-4 border-2 rounded-md'>
+        {/* <p className='text-xs'> {props.item.name}</p> */}
+        <Link to={`/item/${props.item._id}`}>
+          <img src={props.item.imgUrl} alt='' />
+        </Link>
       </div>
 
-      <div className='hover:bg-green-400 p-2 sm:p-3 md:p-4'>
+      <div className='hover:bg-gray-400 p-2 sm:p-3 md:p-4'>
         <p className='text-xs'> {priceCalculator(props.item.price)} </p>
       </div>
 
-      <div className='flex row'>
+      <div className='flex row w-20'>
         <button
           onClick={() => {
             decreaseHandler({
@@ -38,12 +42,12 @@ const CartItem = (props) => {
               item: props.item._id,
             });
           }}
-          className='rounded-full p-2 border-2 hover:bg-green-400'
+          className='rounded-full p-2 border border-black hover:bg-gray-400'
         >
           <p className='text-xs'>-</p>
         </button>
 
-        <div className='inline-block p-2 m-2 '>
+        <div className='inline-block p-1 m-1 '>
           <p className='text-xs'>{props.quantity}</p>
         </div>
 
@@ -54,13 +58,13 @@ const CartItem = (props) => {
               item: props.item._id,
             });
           }}
-          className='rounded-full p-2 border-2 hover:bg-green-400'
+          className='rounded-full p-2 border border-black hover:bg-gray-400'
         >
           <p className='text-xs'>+</p>
         </button>
       </div>
 
-      <div className='hover:bg-green-400 p-2 sm:p-3 md:p-4 border-2 rounded-md'>
+      <div className='hover:bg-gray-400 p-2 sm:p-3 md:p-4 border-2 rounded-md'>
         <p className='text-xs'>
           {priceCalculator(props.item.price * props.quantity)}
         </p>
@@ -69,7 +73,7 @@ const CartItem = (props) => {
         onClick={() => {
           deleteHandler(props.item._id);
         }}
-        className='hover:bg-green-400 p-2 sm:p-3 md:p-4 border-2 rounded-md'
+        className='hover:bg-gray-400 p-2 sm:p-3 md:p-4 border-2 rounded-md'
       >
         <p className='text-xs'>X</p>
       </div>

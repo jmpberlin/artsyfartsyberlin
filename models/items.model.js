@@ -6,6 +6,9 @@ const itemSchema = new Schema({
   articleNumber: { type: Number },
   description: { type: String },
   price: Number,
+  width: Number,
+  height: Number,
+  imgUrl: String,
 });
 
 const Item = model('Item', itemSchema);

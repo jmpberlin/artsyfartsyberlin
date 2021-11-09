@@ -51,12 +51,12 @@ const MainNavbar = (props) => {
       <div className='borderbox flexwrapper'>
         <div>
           <Link to='/'>
-            <button className='logo gradient hover:bg-green-400 p-2 sm:p-3 md:p-4'>
-              Logo
+            <button className='gradient hover:bg-gray-400 p-2 sm:p-3 md:p-4 text-sm'>
+              ARTSY
             </button>
           </Link>
         </div>
-        <div className='gradient hover:bg-green-400 p-2 sm:p-3 md:p-4'>
+        <div className='gradient hover:bg-gray-400 p-2 sm:p-3 md:p-4'>
           <label className='hidden sm:inline md:inline' htmlFor='search'>
             search:
           </label>
@@ -66,7 +66,7 @@ const MainNavbar = (props) => {
           <Link to='/login'>
             <button
               onClick={loginClickHanlder}
-              className='gradient hover:bg-green-400 p-2 sm:p-3 md:p-4'
+              className='gradient hover:bg-gray-400 p-2 sm:p-3 md:p-4'
             >
               {loggedInUser ? `Account` : 'log In'}
             </button>
@@ -74,7 +74,7 @@ const MainNavbar = (props) => {
         </div>
         <div>
           <Link to='/cart'>
-            <button className='gradient hover:bg-green-400 p-2 sm:p-3 md:p-4'>
+            <button className='gradient hover:bg-gray-400 p-2 sm:p-3 md:p-4'>
               Cart
               <NotificationBadge
                 count={props.itemCartCount}

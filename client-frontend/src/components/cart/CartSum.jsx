@@ -34,7 +34,7 @@ const CartSum = (props) => {
             <button
               // onClick={checkoutClickHandler}
               type='submit'
-              className='logo gradient hover:bg-green-400 p-2 sm:p-3 md:p-4'
+              className='logo gradient hover:bg-gray-400 p-2 sm:p-3 md:p-4'
             >
               Continue to Checkout
             </button>

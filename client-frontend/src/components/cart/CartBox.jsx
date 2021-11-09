@@ -45,14 +45,14 @@ const CartBox = (props) => {
   };
   if (cartArr.length === 0) {
     return (
-      <div className='m-2 p-2 sm:p-3 md:p-4 border-2 rounded-xl border-1 border-solid border-black'>
+      <div className='m-2 p-2 sm:p-3 md:p-4 rounded border border-solid border-black'>
         <h4>Your Cart is currently empty!</h4>
       </div>
     );
   }
   return (
     <>
-      <div className='m-2 p-2 sm:p-3 md:p-4 border-2 rounded-xl border-1 border-solid border-black'>
+      <div className='m-2 p-2 sm:p-3 md:p-4 border-2 border rounded border-solid border-black'>
         {cartArr.map((e) => {
           return (
             <CartItem

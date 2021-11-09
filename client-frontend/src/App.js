@@ -8,6 +8,7 @@ import axios from 'axios';
 import PaymentCancel from './components/pay-gateway/PaymentCancel';
 import PaymentSuccess from './components/pay-gateway/PaymentSuccess';
 import PaymentModal from './components/pay-gateway/PaymentModal/PaymentModal';
+import DetailItem from './components/items/DetailItem';
 
 function App(props) {
   const [passedItem, setPassedItem] = useState();
@@ -54,6 +55,18 @@ function App(props) {
         ></PaymentModal>
       )}
       <Switch>
+        <Route
+          exact
+          path='/item/:id'
+          component={(props) => {
+            return (
+              <DetailItem
+                {...props}
+                onAddHandler={addToCartHandler}
+              ></DetailItem>
+            );
+          }}
+        ></Route>
         <Route
           exact
           path='/cart'

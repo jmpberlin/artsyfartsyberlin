@@ -117,4 +117,12 @@ router.post('/deleteFromCart', (req, res, next) => {
   });
 });
 
+/// FIND ONE ARTICLE TO DISPLAY DETAIL VIEW
+
+router.get('/:id', (req, res, next) => {
+  let id = req.params.id;
+  Item.findById(id).then((resFromDb) => {
+    res.json({ item: resFromDb });
+  });
+});
 module.exports = router;
