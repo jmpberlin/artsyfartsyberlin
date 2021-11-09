@@ -9,6 +9,7 @@ import PaymentCancel from './components/pay-gateway/PaymentCancel';
 import PaymentSuccess from './components/pay-gateway/PaymentSuccess';
 import PaymentModal from './components/pay-gateway/PaymentModal/PaymentModal';
 import DetailItem from './components/items/DetailItem';
+import UserProfile from './components/user-profile/UserProfile';
 
 function App(props) {
   const [passedItem, setPassedItem] = useState();
@@ -29,7 +30,6 @@ function App(props) {
         // HERE COMES THE ROUTE FOR SAVING SOMETHING IN AN ORDER
 
         axios.post('/items/addToOrder', itemToAdd).then((resFromDb) => {
-          console.log(resFromDb.data.cartLength);
           setItemCartCount(resFromDb.data.cartLength);
         });
       });
@@ -55,6 +55,7 @@ function App(props) {
         ></PaymentModal>
       )}
       <Switch>
+        <Route exact path='/users/:id' component={UserProfile}></Route>
         <Route
           exact
           path='/item/:id'
@@ -85,7 +86,6 @@ function App(props) {
         ></Route>
         <Route component={PaymentSuccess} path='/success' exact></Route>
         <Route component={PaymentCancel} path='/cancel' exact></Route>
-        {/* <Route exact path='/testroute' component={() => <h1>Hallo</h1>}></Route> */}
       </Switch>
     </div>
   );
