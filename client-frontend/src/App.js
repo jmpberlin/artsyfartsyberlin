@@ -10,6 +10,7 @@ import PaymentSuccess from './components/pay-gateway/PaymentSuccess';
 import PaymentModal from './components/pay-gateway/PaymentModal/PaymentModal';
 import DetailItem from './components/items/DetailItem';
 import UserProfile from './components/user-profile/UserProfile';
+import StoreDashboard from './components/admin/storemanagement/StoreDashboard';
 
 function App(props) {
   const [passedItem, setPassedItem] = useState();
@@ -56,6 +57,13 @@ function App(props) {
       )}
       <Switch>
         <Route exact path='/users/:id' component={UserProfile}></Route>
+        <Route
+          exact
+          path='/users/:id/manageStore'
+          component={(props) => {
+            return <StoreDashboard {...props}></StoreDashboard>;
+          }}
+        ></Route>
         <Route
           exact
           path='/item/:id'

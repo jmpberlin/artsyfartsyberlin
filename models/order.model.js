@@ -46,6 +46,7 @@ const orderSchema = new Schema({
   //   city: { type: String, default: '' },
   // },
   // shoppingCart: [],
+  archive: { type: String, default: 'false' },
 });
 
 const Order = model('Order', orderSchema);

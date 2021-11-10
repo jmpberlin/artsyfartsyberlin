@@ -27,16 +27,25 @@ const AccountMenu = (props) => {
   }
   return (
     <div className='borderbox flexwrapper'>
-      <button
-        onClick={logoutClickHandler}
-        className='gradient hover:bg-purple-400 p-2 sm:p-3 md:p-4'
-      >
-        Log Out!
-      </button>
-     
+      <Link to='/'>
+        <button
+          onClick={logoutClickHandler}
+          className='gradient hover:bg-purple-400 p-2 sm:p-3 md:p-4'
+        >
+          Log Out!
+        </button>
+      </Link>
+
       <Link to={`/users/${user._id}`}>
         <button className='gradient p-2 sm:p-3 md:p-4'>Settings</button>
       </Link>
+      {user.role === 'admin' ? (
+        <Link to={`/users/${user._id}/manageStore`}>
+          <button className='gradient p-2 sm:p-3 md:p-4'>Manage Store</button>
+        </Link>
+      ) : (
+        <h1>Hallo</h1>
+      )}
     </div>
   );
 };

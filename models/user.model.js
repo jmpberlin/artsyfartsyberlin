@@ -14,9 +14,10 @@ const userSchema = new Schema({
     lowercase: true,
     trim: true,
   },
-  image: String,
-  firstName: { type: String, default: '' },
-  lastName: { type: String, default: '' },
+  role: { type: String, default: 'user' },
+  verified: { type: Boolean, default: false },
+  firstName: { type: String },
+  lastName: { type: String },
   address: {
     addressName: { type: String, default: '' },
     streetName: { type: String, default: '' },
@@ -26,6 +27,7 @@ const userSchema = new Schema({
     city: { type: String, default: '' },
   },
   shoppingCart: [],
+  profileUrl: String,
 });
 
 const User = model('User', userSchema);

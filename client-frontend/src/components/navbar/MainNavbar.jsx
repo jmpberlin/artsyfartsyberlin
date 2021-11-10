@@ -5,20 +5,19 @@ import RegisterBox from './RegisterBox';
 import AccountMenu from './AccountMenu';
 import NotificationBadge from 'react-notification-badge';
 import { Effect } from 'react-notification-badge';
-import axios from 'axios';
 
 const MainNavbar = (props) => {
   const [userLogin, setUserlogin] = useState(false);
   const [userRegister, setUserRegister] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(props.currentUser);
   const [showAccount, setShowAccount] = useState(false);
-  const [count, setCount] = useState(0);
 
   const loginClickHanlder = () => {
     if (loggedInUser) {
-      setShowAccount(true);
+      setShowAccount(!showAccount);
       return;
     }
+
     setUserlogin(!userLogin);
 
     if (userRegister) {
@@ -63,14 +62,12 @@ const MainNavbar = (props) => {
           <input className='rounded-md w-24' id='search' type='search' />
         </div>
         <div>
-          <Link to='/login'>
-            <button
-              onClick={loginClickHanlder}
-              className='gradient hover:bg-gray-400 p-2 sm:p-3 md:p-4'
-            >
-              {loggedInUser ? `Account` : 'log In'}
-            </button>
-          </Link>
+          <button
+            onClick={loginClickHanlder}
+            className='gradient hover:bg-gray-400 p-2 sm:p-3 md:p-4'
+          >
+            {loggedInUser ? `Account` : 'log In'}
+          </button>
         </div>
         <div>
           <Link to='/cart'>
