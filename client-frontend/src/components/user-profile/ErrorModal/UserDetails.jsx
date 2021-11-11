@@ -71,7 +71,7 @@ const UserDetails = (props) => {
     setShowNameForm(!showNameForm);
   };
 
-  // SHOW 
+  // SHOW
 
   // SAVE PICTURE IN STATE
   const changePictureHandler = (e) => {
@@ -148,7 +148,7 @@ const UserDetails = (props) => {
           <p className=' p-2 text-sm'>Hey there, {props.user.email}</p>
         )}
       </div>
-      <div className='text-sm bg-gray-50 border rounded mb-4'>
+      <div className='text-xs bg-gray-50 border rounded mb-4'>
         <form
           action={`/users/:${props.user._id}/account`}
           method='post'
@@ -183,7 +183,7 @@ const UserDetails = (props) => {
         </form>
       </div>
       {showNameForm && <EditName></EditName>}
-      <div className='text-sm bg-gray-50 border rounded mb-4'>
+      <div className='text-xs bg-gray-50 border rounded mb-4'>
         <div className='p-2 mb-1'>
           <label className='' htmlFor='firstName'>
             First Name:
@@ -221,7 +221,7 @@ const UserDetails = (props) => {
 
       {/* _______________________________ADDRESS FIELD */}
 
-      <div className='text-sm bg-gray-50 border rounded mb-2'>
+      <div className='text-xs bg-gray-50 border rounded mb-2'>
         <div className='p-2 mb-1'>
           <h4>Update your Shipping Address:</h4>
         </div>

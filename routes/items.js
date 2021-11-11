@@ -3,6 +3,8 @@ var router = express.Router();
 const Item = require('../models/items.model');
 const User = require('../models/user.model');
 const Order = require('../models/order.model');
+const uploader = require('../config/cloudinary');
+const { v4: uuidv4 } = require('uuid');
 
 // GET ALL ITEMS FROM THE ITEM DB
 router.get('/allItems', (req, res, next) => {
@@ -123,6 +125,36 @@ router.get('/:id', (req, res, next) => {
   let id = req.params.id;
   Item.findById(id).then((resFromDb) => {
     res.json({ item: resFromDb });
+  });
+});
+
+router.post(
+  '/newItem/picUpload',
+  uploader.single('imageUrl'),
+  (req, res, next) => {
+    if (!req.file) {
+      next(new Error('No file uploaded!'));
+      return;
+    }
+    res.json({ success: true, picUrl: req.file.path });
+  }
+);
+router.post('/newItem/dataUpload', (req, res, next) => {
+  console.log('there is req.body');
+  console.log(req.body);
+  const { name, imgUrl, price, width, height, description } = req.body;
+  const articleNumber = uuidv4();
+  console.log(articleNumber);
+  Item.create({
+    name,
+    imgUrl,
+    price,
+    width,
+    height,
+    description,
+    articleNumber,
+  }).then((newlyCreatedItem) => {
+    res.json({ success: true, item: newlyCreatedItem });
   });
 });
 module.exports = router;
