@@ -128,6 +128,7 @@ router.get('/:id', (req, res, next) => {
   });
 });
 
+// UPLOAD PICTURE TO CLOUDINARY
 router.post(
   '/newItem/picUpload',
   uploader.single('imageUrl'),
@@ -139,6 +140,8 @@ router.post(
     res.json({ success: true, picUrl: req.file.path });
   }
 );
+
+// UPLOAD DATA FOR NEW ITEM
 router.post('/newItem/dataUpload', (req, res, next) => {
   console.log('there is req.body');
   console.log(req.body);
@@ -156,5 +159,14 @@ router.post('/newItem/dataUpload', (req, res, next) => {
   }).then((newlyCreatedItem) => {
     res.json({ success: true, item: newlyCreatedItem });
   });
+});
+
+// GET ALL ITEMS ( ALSO THE ARCHIVED ONE ) ADMIN ROUTE
+router.get('/admin/getAllItems', (req, res, next) => {
+  Item.find()
+    .then((allItems) => {
+      res.json({ success: true, items: allItems });
+    })
+    .catch((err) => res.json({ success: false, message: err }));
 });
 module.exports = router;

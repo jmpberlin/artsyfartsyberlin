@@ -30,8 +30,8 @@ const ItemBox = (props) => {
     );
   }
   return (
-    <div className='borderbox flexwrapper flex-col'>
-      <h2>Products</h2>
+    <div className='m-4 flexwrapper flex-col'>
+      <h2 className="mb-4"></h2>
       {allItems.map((item) => {
         return (
           <SingleItem

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import AllArticles from './AllArticles';
+import AllArticles from './AllArticles/AllArticles';
 import ManagementMenu from './ManagementMenu';
 import AddArticle from './AddArticle/AddArticle';
-import ShowStock from './ShowStock';
+import ShowStock from './ShowStock/ShowStock';
 import axios from 'axios';
 
 const StoreDashboard = (props) => {
@@ -10,7 +10,6 @@ const StoreDashboard = (props) => {
   const [user, setUser] = useState(null);
   useEffect(() => {
     axios.get('/isUserLoggedIn').then((resFromDb) => {
-      console.log(resFromDb);
       setUser(resFromDb.data.user);
     });
   }, []);

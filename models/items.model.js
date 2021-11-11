@@ -9,6 +9,7 @@ const itemSchema = new Schema({
   width: Number,
   height: Number,
   imgUrl: String,
+  timestamp: { type: Date, default: Date.now },
 });
 
 const Item = model('Item', itemSchema);
