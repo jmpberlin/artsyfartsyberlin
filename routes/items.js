@@ -169,4 +169,23 @@ router.get('/admin/getAllItems', (req, res, next) => {
     })
     .catch((err) => res.json({ success: false, message: err }));
 });
+
+/// ADMIN ROUTE TO DELETE ITEM FROM SHOP!
+router.delete('/deleteItemFromStore/:id', (req, res, next) => {
+  if (req.session.currentUser.role !== 'admin') {
+    res.json({
+      success: false,
+      msg: 'user is not logged in or user is not an admin and lacks authorization for this action!',
+    });
+    return;
+  }
+  Item.findByIdAndDelete(req.params.id).then((resFromDelete) => {
+    console.log(resFromDelete);
+
+    res.json({
+      success: true,
+      msg: 'everything worked!',
+    });
+  });
+});
 module.exports = router;
