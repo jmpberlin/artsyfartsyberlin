@@ -7,7 +7,7 @@ const uploader = require('../config/cloudinary');
 const { v4: uuidv4 } = require('uuid');
 
 // GET ALL ITEMS FROM THE ITEM DB
-router.get('/allItems', (req, res, next) => {
+router.get('/allItems/', (req, res, next) => {
   Item.find()
     .then((resFromDb) => {
       res.json(resFromDb);
@@ -17,6 +17,19 @@ router.get('/allItems', (req, res, next) => {
     });
 });
 
+//
+
+router.get('/searchBarItems', (req, res, next) => {
+  const query = req.query.search;
+
+  Item.find({ name: query }).then((foundArticles) => {
+    res.json({
+      msg: 'everything worked',
+      success: 'true',
+      articles: foundArticles,
+    });
+  });
+});
 /// ADD TO DB ORDER ROUTE!!
 
 router.post('/addToOrder', (req, res, next) => {
@@ -62,6 +75,7 @@ router.post('/addToOrder', (req, res, next) => {
 });
 
 // GET ALL ITEMS OUT OF THE USER ORDER ENTRY IN THE DB!
+
 router.get('/userOrder', (req, res, next) => {
   const orderId = req.session.currentOrder;
   Order.findById(orderId)

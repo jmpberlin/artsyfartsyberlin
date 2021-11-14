@@ -4,12 +4,12 @@ import { useState, useEffect } from 'react';
 import SingleItem from './SingleItem';
 
 const ItemBox = (props) => {
-  const [allItems, setAllItems] = useState([]);
-  useEffect(() => {
-    axios.get('/items/allItems').then((resFromDb) => {
-      setAllItems(resFromDb.data);
-    });
-  }, []);
+  const [allItems, setAllItems] = useState(props.articles);
+  // useEffect(() => {
+  //   axios.get('/items/allItems').then((resFromDb) => {
+  //     setAllItems(resFromDb.data);
+  //   });
+  // }, []);
   const addToCartHandler = (itemToAdd) => {
     props.addToCart(itemToAdd);
   };
@@ -31,7 +31,7 @@ const ItemBox = (props) => {
   }
   return (
     <div className='m-4 flexwrapper flex-col'>
-      <h2 className="mb-4"></h2>
+      <h2 className='mb-4'></h2>
       {allItems.map((item) => {
         return (
           <SingleItem

@@ -2,7 +2,7 @@ import './App.css';
 import MainNavbar from './components/navbar/MainNavbar';
 import { Switch, Route } from 'react-router-dom';
 import ItemBox from './components/items/ItemBox';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CartBox from './components/cart/CartBox';
 import axios from 'axios';
 import PaymentCancel from './components/pay-gateway/PaymentCancel';
@@ -13,12 +13,19 @@ import UserProfile from './components/user-profile/UserProfile';
 import StoreDashboard from './components/admin/storemanagement/StoreDashboard';
 
 function App(props) {
+  const [allItems, setAllItems] = useState([]);
   const [passedItem, setPassedItem] = useState();
   const [itemCartCount, setItemCartCount] = useState();
   const [paymentModalUrl, setPaymentModalUrl] = useState(null);
+  const [axiosTrigger, setAxiosTrigger] = useState(false);
   const passCartLength = (cartLength) => {
     setItemCartCount(cartLength);
   };
+  useEffect(() => {
+    axios.get('/items/allItems').then((resFromDb) => {
+      setAllItems(resFromDb.data);
+    });
+  }, [axiosTrigger]);
   const addToCartHandler = (itemToAdd) => {
     setPassedItem({ itemToAdd });
 
@@ -43,9 +50,16 @@ function App(props) {
   const hidePaymentModalHandler = () => {
     setPaymentModalUrl(null);
   };
+  const receiveArticlesAndSetState = (articles) => {
+    if (articles.length === 0) {
+      setAxiosTrigger(!axiosTrigger);
+    }
+    setAllItems(articles);
+  };
   return (
     <div>
       <MainNavbar
+        receiveArticlesFromNavbar={receiveArticlesAndSetState}
         currentUser={props.currentUser}
         itemCartCount={itemCartCount}
       ></MainNavbar>
@@ -90,7 +104,9 @@ function App(props) {
         <Route
           path='/'
           exact
-          component={() => <ItemBox addToCart={addToCartHandler}></ItemBox>}
+          component={() => (
+            <ItemBox articles={allItems} addToCart={addToCartHandler}></ItemBox>
+          )}
         ></Route>
         <Route component={PaymentSuccess} path='/success' exact></Route>
         <Route component={PaymentCancel} path='/cancel' exact></Route>

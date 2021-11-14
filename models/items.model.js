@@ -10,6 +10,7 @@ const itemSchema = new Schema({
   height: Number,
   imgUrl: String,
   timestamp: { type: Date, default: Date.now },
+  stock: Number,
 });
 
 const Item = model('Item', itemSchema);

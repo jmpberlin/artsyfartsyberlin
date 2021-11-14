@@ -9,7 +9,7 @@ const ManageSingleItem = (props) => {
     day: 'numeric',
   };
   let year = new Date(props.item.timestamp).toLocaleString('de-DE', options);
-  console.log(year);
+
   const onDeleteHandler = (e) => {
     props.deleteItem(props.item);
   };

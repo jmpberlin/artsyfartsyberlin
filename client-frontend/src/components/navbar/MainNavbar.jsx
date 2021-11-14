@@ -5,13 +5,16 @@ import RegisterBox from './RegisterBox';
 import AccountMenu from './AccountMenu';
 import NotificationBadge from 'react-notification-badge';
 import { Effect } from 'react-notification-badge';
+import FilterBar from '../Search/FilterBar';
+import SearchBar from '../Search/SearchBar';
 
 const MainNavbar = (props) => {
   const [userLogin, setUserlogin] = useState(false);
   const [userRegister, setUserRegister] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(props.currentUser);
   const [showAccount, setShowAccount] = useState(false);
-
+  const [showFilterComponent, setShowFilterComponent] = useState(false);
+  const [searchInput, setSearchInput] = useState(null);
   const loginClickHanlder = () => {
     if (loggedInUser) {
       setShowAccount(!showAccount);
@@ -45,6 +48,17 @@ const MainNavbar = (props) => {
     setLoggedInUser(true);
     setUserlogin(false);
   };
+
+  const onCloseFilterBar = () => {
+    setShowFilterComponent(false);
+  };
+  const onShowFilterHandler = () => {
+    setShowFilterComponent(true);
+  };
+  const receiveArticlesFromSearchHandler = (articles) => {
+    console.log(articles);
+    props.receiveArticlesFromNavbar(articles);
+  };
   return (
     <>
       <div className='borderbox flexwrapper'>
@@ -55,12 +69,10 @@ const MainNavbar = (props) => {
             </button>
           </Link>
         </div>
-        <div className='gradient hover:bg-gray-400 p-2 sm:p-3 md:p-4'>
-          <label className='hidden sm:inline md:inline' htmlFor='search'>
-            search:
-          </label>
-          <input className='rounded-md w-24' id='search' type='search' />
-        </div>
+        <SearchBar
+          showFilter={onShowFilterHandler}
+          receiveArticlesFromSearch={receiveArticlesFromSearchHandler}
+        ></SearchBar>
         <div>
           <button
             onClick={loginClickHanlder}
@@ -94,6 +106,9 @@ const MainNavbar = (props) => {
         ></RegisterBox>
       )}
       {showAccount && <AccountMenu onLogout={onLogoutHandler}></AccountMenu>}
+      {showFilterComponent && (
+        <FilterBar closeFilterBar={onCloseFilterBar}></FilterBar>
+      )}
     </>
   );
 };
