@@ -1,6 +1,5 @@
 import React from 'react';
 import classes from './PreviewModal.module.css';
-import { Link } from 'react-router-dom';
 import DisplayPreviewPic from '../DisplayPreviewPic';
 
 const ErrorModal = (props) => {

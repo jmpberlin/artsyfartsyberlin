@@ -67,7 +67,11 @@ const CartBox = (props) => {
         })}
       </div>
 
-      <CartSum passStripeUrl={passStripeUrlHandler} items={cartArr}></CartSum>
+      <CartSum
+        currentUser={props.currentUser}
+        passStripeUrl={passStripeUrlHandler}
+        items={cartArr}
+      ></CartSum>
     </>
   );
 };

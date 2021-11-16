@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  formatPrice,
+  formatDescription,
+} from '../../Utility/scripts/functions';
+import ShoppingCartButton from './ShoppingCartButton';
 
 const SingleItem = (props) => {
   const [quantity, setQuantity] = useState(0);
@@ -18,22 +23,17 @@ const SingleItem = (props) => {
     }
   };
   const onAddHandler = () => {
+    console.log('hit the button!');
     if (quantity > 0) {
       props.addToCard({ item: props.itemObj, quantity: quantity });
       setQuantity(0);
     }
   };
-  const priceCalculator = (cents) => {
-    if (cents % 10 === 0) {
-      return cents / 100 + '.' + '00' + ' €';
-    } else {
-      return cents / 100 + ' €';
-    }
-  };
+
   return (
     <div className='border-2 flex mb-6 hover:bg-gray-50'>
       <div className='flex row'>
-        <div className='w-2/3'>
+        <div className='w-1/2'>
           <Link to={`/item/${props.itemObj._id}`}>
             <img
               className='object-contain '
@@ -42,15 +42,19 @@ const SingleItem = (props) => {
             />
           </Link>
         </div>
-        <div className='w-1/2 p-2 text-sm'>
-          <p>{props.itemObj.description}</p>
+        <div className='w-1/2 p-2'>
+          <div className='text-xl pb-2'>
+            <p>{props.itemObj.name}</p>
+          </div>
+          <div className='text-xs'>
+            <p>{formatDescription(props.itemObj.description)}</p>
+          </div>
         </div>
       </div>
 
       <div className='flexwrapper flex-col w-full justify-evenly m-auto p-2'>
         <div className='gradient hover:bg-gray-400 p-2 sm:p-3 md:p-4 flex-col text-sm'>
-          <div>{props.itemObj.name}</div>
-          <div>{priceCalculator(props.itemObj.price)}</div>
+          <div>{formatPrice(props.itemObj.price)}</div>
         </div>
         {/* <div className='p-3 m-2'>
         {props.itemObj.description.split(' ').slice(0, 5).join(' ') + '...'}
@@ -74,12 +78,7 @@ const SingleItem = (props) => {
           </button>
         </div>
         <div>
-          <button
-            onClick={onAddHandler}
-            className='gradient hover:bg-gray-400 p-2 sm:p-3 md:p-4'
-          >
-            add
-          </button>
+          <ShoppingCartButton clickHandler={onAddHandler}></ShoppingCartButton>
         </div>
       </div>
     </div>

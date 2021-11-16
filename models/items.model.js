@@ -11,6 +11,7 @@ const itemSchema = new Schema({
   imgUrl: String,
   timestamp: { type: Date, default: Date.now },
   stock: Number,
+  archived: { type: Boolean, default: false },
 });
 
 const Item = model('Item', itemSchema);

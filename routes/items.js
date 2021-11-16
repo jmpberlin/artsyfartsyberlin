@@ -8,7 +8,7 @@ const { v4: uuidv4 } = require('uuid');
 
 // GET ALL ITEMS FROM THE ITEM DB
 router.get('/allItems/', (req, res, next) => {
-  Item.find()
+  Item.find({ archived: false })
     .then((resFromDb) => {
       res.json(resFromDb);
     })
@@ -22,13 +22,16 @@ router.get('/allItems/', (req, res, next) => {
 router.get('/searchBarItems', (req, res, next) => {
   const query = req.query.search;
 
-  Item.find({ name: query }).then((foundArticles) => {
-    res.json({
-      msg: 'everything worked',
-      success: 'true',
-      articles: foundArticles,
-    });
-  });
+  Item.find({ name: { $regex: query, $options: 'i' } }).then(
+    (foundArticles) => {
+      console.log(foundArticles);
+      res.json({
+        msg: 'everything worked',
+        success: 'true',
+        articles: foundArticles,
+      });
+    }
+  );
 });
 /// ADD TO DB ORDER ROUTE!!
 
@@ -193,13 +196,33 @@ router.delete('/deleteItemFromStore/:id', (req, res, next) => {
     });
     return;
   }
-  Item.findByIdAndDelete(req.params.id).then((resFromDelete) => {
-    console.log(resFromDelete);
+  Item.findByIdAndUpdate(req.params.id, { archived: true }).then(
+    (resFromDelete) => {
+      console.log(resFromDelete);
 
+      res.json({
+        success: true,
+        msg: 'everything worked!',
+      });
+    }
+  );
+});
+router.post('/restoreItem/:id', (req, res, next) => {
+  console.log('Hit the route!');
+  if (req.session.currentUser.role !== 'admin') {
     res.json({
-      success: true,
-      msg: 'everything worked!',
+      success: false,
+      msg: 'user is not logged in or user is not an admin and lacks authorization for this action!',
     });
-  });
+    return;
+  }
+  Item.findByIdAndUpdate(req.params.id, { archived: false }).then(
+    (resFromRestore) => {
+      res.json({
+        success: true,
+        msg: 'everything worked!',
+      });
+    }
+  );
 });
 module.exports = router;

@@ -4,9 +4,16 @@ import { formatPrice } from '../../../Utility/scripts/functions';
 
 const SafetyModal = (props) => {
   const proceedHandler = () => {
+    if (props.handler === 'delete') {
+      props.deleteHandler(props.item);
+    }
+    if (props.handler === 'restore') {
+      props.restoreHandler(props.item);
+    }
     props.hideOverlay();
-    props.successHandler(props.item);
+  
   };
+
   const goBackHandler = () => {
     props.hideOverlay();
   };

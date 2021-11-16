@@ -1,15 +1,11 @@
 import React, { useEffect } from 'react';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { Link } from 'react-router-dom';
+import { formatPrice } from '../../Utility/scripts/functions';
 
 const CartItem = (props) => {
-  const priceCalculator = (cents) => {
-    if (cents % 10 === 0) {
-      return cents / 100 + '.' + '00' + ' €';
-    } else {
-      return cents / 100 + ' €';
-    }
-  };
   useEffect(() => {}, []);
 
   const increaseHandler = (quantityToInc) => {
@@ -31,7 +27,7 @@ const CartItem = (props) => {
       </div>
 
       <div className='hover:bg-gray-400 p-2 sm:p-3 md:p-4'>
-        <p className='text-xs'> {priceCalculator(props.item.price)} </p>
+        <p className='text-xs'> {formatPrice(props.item.price)} </p>
       </div>
 
       <div className='flex row w-20'>
@@ -42,7 +38,7 @@ const CartItem = (props) => {
               item: props.item._id,
             });
           }}
-          className='rounded-full p-2 border border-black hover:bg-gray-400'
+          className='rounded-full p-1 border border-black hover:bg-gray-400'
         >
           <p className='text-xs'>-</p>
         </button>
@@ -58,24 +54,27 @@ const CartItem = (props) => {
               item: props.item._id,
             });
           }}
-          className='rounded-full p-2 border border-black hover:bg-gray-400'
+          className='rounded-full p-1 border border-black hover:bg-gray-400'
         >
           <p className='text-xs'>+</p>
         </button>
       </div>
 
-      <div className='hover:bg-gray-400 p-2 sm:p-3 md:p-4 border-2 rounded-md'>
+      <div className='hover:bg-gray-400 p-2 sm:p-3 md:p-4'>
         <p className='text-xs'>
-          {priceCalculator(props.item.price * props.quantity)}
+          {formatPrice(props.item.price * props.quantity)}
         </p>
       </div>
       <div
         onClick={() => {
           deleteHandler(props.item._id);
         }}
-        className='hover:bg-gray-400 p-2 sm:p-3 md:p-4 border-2 rounded-md'
+        className='hover:bg-gray-400 rounded-md'
       >
-        <p className='text-xs'>X</p>
+        <IconButton aria-label='delete' size='large'>
+          <DeleteIcon />
+        </IconButton>
+        {/* <p className='text-xs'>X</p> */}
       </div>
     </div>
   );

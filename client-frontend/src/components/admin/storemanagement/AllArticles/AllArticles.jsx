@@ -7,9 +7,10 @@ import SafetyModal from '../../../UI/SafetyModal/SafetyModal';
 const AllArticles = () => {
   const [itemsArr, setItemsArr] = useState(null);
   const [showSafetyModal, setShowSafetyModal] = useState(null);
-  const [itemToDelete, setItemToDelete] = useState(null);
-  let modalMsg =
-    'You are about to delete the above item from your online-shop. Are your sure, you want to proceed?';
+  const [itemToHandle, setItemToHandle] = useState(null);
+  const [deleteRestore, setDeleteRestore] = useState('');
+  const [reloadTrigger, setReloadTrigger] = useState(false);
+  const [modalMsg, setModalMsg] = useState('');
   let modalAlert = 'Are you sure?';
   let yesButton = "Yes, I'm sure!";
   let noButton = 'No, go back!';
@@ -17,20 +18,40 @@ const AllArticles = () => {
     axios.get('/items/admin/getAllItems').then((resFromDb) => {
       setItemsArr(resFromDb.data.items);
     });
-  }, []);
+  }, [reloadTrigger]);
   const deleteItemHandler = (item) => {
-    setItemToDelete(item);
+    setItemToHandle(item);
+    setDeleteRestore('delete');
+    setModalMsg(
+      'You are about to delete the above item from your online-shop. Are your sure, you want to proceed?'
+    );
+    setShowSafetyModal(true);
+  };
+  const restoreItemHandler = (item) => {
+    setItemToHandle(item);
+    setDeleteRestore('restore');
+    setModalMsg(
+      'You are about to restore the above item from your online-shop. Are your sure, you want to proceed?'
+    );
     setShowSafetyModal(true);
   };
   const hideSafetyModal = () => {
     setShowSafetyModal(false);
-    setItemToDelete(null);
+
+    setItemToHandle(null);
   };
   const onDeleteItem = (item) => {
     axios.delete(`/items/deleteItemFromStore/${item._id}`).then((resFromDb) => {
       console.log(resFromDb);
+      setReloadTrigger(!reloadTrigger);
     });
   };
+  const onRestoreItem = (item) => {
+    axios.post(`/items/restoreItem/${item._id}`).then((resFromDb) => {
+      setReloadTrigger(!reloadTrigger);
+    });
+  };
+
   if (itemsArr === null || itemsArr.length < 1) {
     return <Spinner></Spinner>;
   }
@@ -43,14 +64,17 @@ const AllArticles = () => {
           yesButton={yesButton}
           noButton={noButton}
           hideOverlay={hideSafetyModal}
-          item={itemToDelete}
-          successHandler={onDeleteItem}
+          item={itemToHandle}
+          deleteHandler={onDeleteItem}
+          restoreHandler={onRestoreItem}
+          handler={deleteRestore}
         ></SafetyModal>
       )}
       {itemsArr.map((item) => {
         return (
           <ManageItemOverview
             deleteItem={deleteItemHandler}
+            restoreItem={restoreItemHandler}
             key={item._id}
             item={item}
           ></ManageItemOverview>

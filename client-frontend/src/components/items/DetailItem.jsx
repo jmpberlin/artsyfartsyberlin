@@ -1,21 +1,10 @@
 import axios from 'axios';
-import React, { useEffect, useState, useParams } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import spinner from './spinner.gif';
+import { formatPrice } from '../../Utility/scripts/functions';
 
 const DetailItem = (props) => {
-  const priceParser = (cents) => {
-    let decimal = (cents / 100).toString();
-
-    let splitArr = decimal.split('.');
-
-    if (splitArr.length === 1) {
-      return splitArr[0] + ',' + '00' + ' €';
-    }
-    if (splitArr.length > 1) {
-      return splitArr[0] + ',' + splitArr[1] + ' €';
-    }
-  };
   const onAddHandler = (article) => {
     console.log(article);
     props.onAddHandler({ item: article, quantity: 1 });
@@ -46,7 +35,7 @@ const DetailItem = (props) => {
         <p className='m-2'>{article.description}</p>
         <p className='m-2'>Width: {article.width} cm</p>
         <p className='m-2'>Height: {article.height} cm</p>
-        <p className='m-2 text-lg'>Price: {priceParser(article.price)}</p>
+        <p className='m-2 text-lg'>Price: {formatPrice(article.price)}</p>
         <button
           onClick={() => {
             onAddHandler(article);

@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import { AuthContextProvider } from './store/auth-context';
 import axios from 'axios';
+
 
 axios
   .get('/checkuser')
   .then((res) => {
     ReactDOM.render(
       <Router>
-        <App currentUser={res.data.currentUser} />
+        <AuthContextProvider>
+          <App currentUser={res.data.currentUser} />
+        </AuthContextProvider>
       </Router>,
       document.getElementById('root')
     );

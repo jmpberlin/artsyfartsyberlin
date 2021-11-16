@@ -17,7 +17,7 @@ function App(props) {
   const [passedItem, setPassedItem] = useState();
   const [itemCartCount, setItemCartCount] = useState();
   const [paymentModalUrl, setPaymentModalUrl] = useState(null);
-  const [axiosTrigger, setAxiosTrigger] = useState(false);
+  const [noArticlesFound, setNoArticlesFound] = useState(false);
   const passCartLength = (cartLength) => {
     setItemCartCount(cartLength);
   };
@@ -25,7 +25,7 @@ function App(props) {
     axios.get('/items/allItems').then((resFromDb) => {
       setAllItems(resFromDb.data);
     });
-  }, [axiosTrigger]);
+  }, []);
   const addToCartHandler = (itemToAdd) => {
     setPassedItem({ itemToAdd });
 
@@ -51,10 +51,10 @@ function App(props) {
     setPaymentModalUrl(null);
   };
   const receiveArticlesAndSetState = (articles) => {
-    if (articles.length === 0) {
-      setAxiosTrigger(!axiosTrigger);
-    }
     setAllItems(articles);
+    if (articles.length === 0) {
+      setNoArticlesFound(true);
+    }
   };
   return (
     <div>
@@ -95,6 +95,7 @@ function App(props) {
           path='/cart'
           component={() => (
             <CartBox
+              currentUser={props.currentUser}
               passStripeUrl={passStripeUrlHandler}
               passCartLenght={passCartLength}
               passedItem={passedItem}
@@ -105,7 +106,11 @@ function App(props) {
           path='/'
           exact
           component={() => (
-            <ItemBox articles={allItems} addToCart={addToCartHandler}></ItemBox>
+            <ItemBox
+              articles={allItems}
+              addToCart={addToCartHandler}
+              show={noArticlesFound}
+            ></ItemBox>
           )}
         ></Route>
         <Route component={PaymentSuccess} path='/success' exact></Route>

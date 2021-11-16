@@ -13,8 +13,7 @@ const SearchBar = (props) => {
         axios
           .get(`/items/searchBarItems?search=${searchInput}`)
           .then((resFromDb) => {
-            console.log(resFromDb);
-             props.receiveArticlesFromSearch(resFromDb.data.articles);
+            props.receiveArticlesFromSearch(resFromDb.data.articles);
           });
       }
     }, 500);
@@ -29,7 +28,7 @@ const SearchBar = (props) => {
     setSearchInput(input);
   };
   return (
-    <div className='gradient hover:bg-gray-400 p-2 sm:p-3 md:p-4'>
+    <div className='bg-gray-400 rounded hover:bg-gray-400 p-2 sm:p-3 md:p-4'>
       <label className='hidden sm:inline md:inline' htmlFor='search'>
         search:
       </label>

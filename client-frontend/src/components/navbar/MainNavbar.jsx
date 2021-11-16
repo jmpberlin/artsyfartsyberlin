@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LoginBox from './LoginBox';
 import RegisterBox from './RegisterBox';
@@ -14,7 +14,7 @@ const MainNavbar = (props) => {
   const [loggedInUser, setLoggedInUser] = useState(props.currentUser);
   const [showAccount, setShowAccount] = useState(false);
   const [showFilterComponent, setShowFilterComponent] = useState(false);
-  const [searchInput, setSearchInput] = useState(null);
+  // const [searchInput, setSearchInput] = useState(null);
   const loginClickHanlder = () => {
     if (loggedInUser) {
       setShowAccount(!showAccount);
@@ -56,41 +56,47 @@ const MainNavbar = (props) => {
     setShowFilterComponent(true);
   };
   const receiveArticlesFromSearchHandler = (articles) => {
-    console.log(articles);
     props.receiveArticlesFromNavbar(articles);
   };
   return (
-    <>
-      <div className='borderbox flexwrapper'>
-        <div>
-          <Link to='/'>
-            <button className='gradient hover:bg-gray-400 p-2 sm:p-3 md:p-4 text-sm'>
-              ARTSY
+    <div >
+      <div className='border border-black rounded p-2 m-2 text-center'>
+        <div className='flex justify-evenly items-center asad flex-row mb-2'>
+          <div>
+            <Link to='/'>
+              <button className='bg-gray-400 p-2 sm:p-3 md:p-4 text-xs rounded'>
+                ARTSY
+                <hr />
+                FARTSY
+              </button>
+            </Link>
+          </div>
+          <SearchBar
+            showFilter={onShowFilterHandler}
+            receiveArticlesFromSearch={receiveArticlesFromSearchHandler}
+          ></SearchBar>
+          <div>
+            <button
+              onClick={loginClickHanlder}
+              className='bg-gray-400 rounded hover:bg-gray-400 p-2 sm:p-3 md:p-4'
+            >
+              {loggedInUser ? `Account` : 'log In'}
             </button>
-          </Link>
+          </div>
+          <div>
+            <Link to='/cart'>
+              <button className='bg-gray-400 rounded hover:bg-gray-400 p-2 sm:p-3 md:p-4'>
+                Cart
+                <NotificationBadge
+                  count={props.itemCartCount}
+                  effect={Effect.SCALE}
+                />
+              </button>
+            </Link>
+          </div>
         </div>
-        <SearchBar
-          showFilter={onShowFilterHandler}
-          receiveArticlesFromSearch={receiveArticlesFromSearchHandler}
-        ></SearchBar>
         <div>
-          <button
-            onClick={loginClickHanlder}
-            className='gradient hover:bg-gray-400 p-2 sm:p-3 md:p-4'
-          >
-            {loggedInUser ? `Account` : 'log In'}
-          </button>
-        </div>
-        <div>
-          <Link to='/cart'>
-            <button className='gradient hover:bg-gray-400 p-2 sm:p-3 md:p-4'>
-              Cart
-              <NotificationBadge
-                count={props.itemCartCount}
-                effect={Effect.SCALE}
-              />
-            </button>
-          </Link>
+          <p>...your no.1 Art-Shop!</p>
         </div>
       </div>
       {userLogin && (
@@ -109,7 +115,7 @@ const MainNavbar = (props) => {
       {showFilterComponent && (
         <FilterBar closeFilterBar={onCloseFilterBar}></FilterBar>
       )}
-    </>
+    </div>
   );
 };
 

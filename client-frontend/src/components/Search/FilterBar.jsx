@@ -6,8 +6,12 @@ const FilterBar = (props) => {
   };
   return (
     <div>
-      <div></div>
-      <h2>Hey there from filterbar!</h2>
+      <div className='flex text-xs'>
+        <div className='border rounded p-2 m-2 w-1/4'>option 1</div>
+        <div className='border rounded p-2 m-2 w-1/4'>option 2</div>
+        <div className='border rounded p-2 m-2 w-1/4'>option 3</div>
+        <div className='border rounded p-2 m-2 w-1/4'>option 4</div>
+      </div>
       <div>
         <button
           className='border rounded p-2 m-2 bg-gray-50'

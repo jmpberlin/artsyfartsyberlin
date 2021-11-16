@@ -7,6 +7,12 @@ const User = require('../models/user.model');
 const YOUR_DOMAIN = 'http://localhost:4444';
 
 router.post('/create-checkout-session', async (req, res) => {
+  if (
+    req.session.currentUser === null ||
+    req.session.currentUser === undefined
+  ) {
+    res.redirect('/cart');
+  }
   const orderId = req.session.currentOrder;
   Order.findById(orderId)
     .populate('items.item')

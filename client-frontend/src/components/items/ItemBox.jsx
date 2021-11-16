@@ -1,6 +1,5 @@
-import axios from 'axios';
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import SingleItem from './SingleItem';
 
 const ItemBox = (props) => {
@@ -16,6 +15,7 @@ const ItemBox = (props) => {
   if (allItems.length === 0) {
     return (
       <div className='borderbox flexwrapper flex-col'>
+        {props.show && <h1> ... no articles found! </h1>}
         <div className='lds-roller asd  p-4 m-4'>
           <div></div>
           <div></div>
@@ -31,7 +31,6 @@ const ItemBox = (props) => {
   }
   return (
     <div className='m-4 flexwrapper flex-col'>
-      <h2 className='mb-4'></h2>
       {allItems.map((item) => {
         return (
           <SingleItem

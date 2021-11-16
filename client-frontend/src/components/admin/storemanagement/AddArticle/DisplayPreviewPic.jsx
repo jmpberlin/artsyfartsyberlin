@@ -1,18 +1,7 @@
 import React from 'react';
+import { formatPrice } from '../../../../Utility/scripts/functions';
 
 const DisplayPreviewPic = (props) => {
-  const priceParser = (cents) => {
-    let decimal = (cents / 100).toString();
-
-    let splitArr = decimal.split('.');
-
-    if (splitArr.length === 1) {
-      return splitArr[0] + ',' + '00' + ' €';
-    }
-    if (splitArr.length > 1) {
-      return splitArr[0] + ',' + splitArr[1] + ' €';
-    }
-  };
   return (
     <div>
       <div className='m-3 flex  flex-col'>
@@ -24,7 +13,7 @@ const DisplayPreviewPic = (props) => {
           <p className='m-2'>{props.description}</p>
           <p className='m-2'>Width: {props.width} cm</p>
           <p className='m-2'>Height: {props.height} cm</p>
-          <p className='m-2 text-lg'>Price: {priceParser(props.price)}</p>
+          <p className='m-2 text-lg'>Price: {formatPrice(props.price)}</p>
           <button className='border border-black p-2 gradient rounded '>
             Add to Cart
           </button>
