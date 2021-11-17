@@ -81,11 +81,21 @@ router.post('/addToOrder', (req, res, next) => {
 
 router.get('/userOrder', (req, res, next) => {
   const orderId = req.session.currentOrder;
-  Order.findById(orderId)
-    .populate('items.item')
-    .then((userOrderFromDb) => {
-      res.json(userOrderFromDb);
-    });
+  if (!req.session.currentUser) {
+    Order.findById(orderId)
+      .populate('items.item')
+      .then((userOrderFromDb) => {
+        res.json(userOrderFromDb);
+      });
+  }
+  if (req.session.currentUser) {
+    const userId = req.session.currentUser._id;
+    Order.findOne({ cartUser: userId })
+      .populate('items.item')
+      .then((userOrderFromDb) => {
+        res.json(userOrderFromDb);
+      });
+  }
 });
 
 // SET QUANTITY IN THE CART

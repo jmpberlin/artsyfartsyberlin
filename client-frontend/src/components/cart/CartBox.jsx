@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import CartItem from './CartItem';
 import CartSum from './CartSum';
+import AuthContext from '../../store/auth-context';
 
 const CartBox = (props) => {
   const [cartArr, setCartArr] = useState([]);
   const [updatedCart, setUpdatedCart] = useState(true);
-
+  const authCtx = useContext(AuthContext);
   useEffect(() => {
     axios.get('/items/userOrder').then((resFromDb) => {
+      console.log(resFromDb);
       if (resFromDb.data === null) {
         return;
       }
@@ -18,7 +20,7 @@ const CartBox = (props) => {
         setCartArr([]);
       }
     });
-  }, [updatedCart]);
+  }, [updatedCart, authCtx.isLoggedIn]);
   const decreaseQuantity = (obj) => {
     axios.post('/items/setQuantityOfCartItem', { obj }).then((resFromDb) => {
       setUpdatedCart(!updatedCart);

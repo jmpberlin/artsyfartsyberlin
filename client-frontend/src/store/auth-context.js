@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 
 const AuthContext = React.createContext({
   isLoggedIn: false,
@@ -8,13 +9,23 @@ const AuthContext = React.createContext({
 
 export const AuthContextProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [rerenderDep, setRerenderDep] = useState(false);
+
   const loginHandler = () => {
-    console.log('i am being clicked!');
     setIsLoggedIn(true);
   };
   const logoutHandler = () => {
     setIsLoggedIn(false);
   };
+  useEffect(() => {
+    axios.get('/isUserLoggedIn').then((resFromDb) => {
+      if (resFromDb.data.success) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    });
+  }, [rerenderDep]);
   return (
     <AuthContext.Provider
       value={{

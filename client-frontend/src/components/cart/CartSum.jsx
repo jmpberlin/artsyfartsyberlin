@@ -12,13 +12,13 @@ const CartSum = (props) => {
   const formattedSum = formatPrice(sum);
   const [showAlert, setShowAlert] = useState(true);
 
-  useEffect(() => {
-    axios.get('checkuser').then((resFromDb) => {
-      if (resFromDb.data.currentUser !== null) {
-        setShowAlert(false);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get('/checkuser').then((resFromDb) => {
+  //     if (resFromDb.data.currentUser !== null) {
+  //       setShowAlert(false);
+  //     }
+  //   });
+  // }, []);
   // STRIPE DOESNT WORK AS AXIOS REQUEST
   // const checkoutClickHandler = (e) => {
   //   e.preventDefault();
@@ -44,7 +44,6 @@ const CartSum = (props) => {
               </p>
             ) : (
               <button
-                disabled={ctx.isLoggedIn ? false : true}
                 // onClick={checkoutClickHandler}
                 type='submit'
                 className='logo gradient hover:bg-gray-400 p-2 sm:p-3 md:p-4'
@@ -53,13 +52,6 @@ const CartSum = (props) => {
               </button>
             )}
           </form>
-          {ctx.isLoggedIn && <h1>Hallo from "isLoggedIn"</h1>}
-          {!ctx.isLoggedIn && (
-            <button onClick={ctx.onLogin}>Click Me to Show! </button>
-          )}
-          {ctx.isLoggedIn && (
-            <button onClick={ctx.onLogout}>Click Me to Hide </button>
-          )}
         </div>
       </div>
     </>

@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import { AuthContextProvider } from './store/auth-context';
 import axios from 'axios';
 
-
+console.log('index.js is rerenderin!');
 axios
   .get('/checkuser')
   .then((res) => {

@@ -1,14 +1,14 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import ErrorMessage from './ErrorMessage';
-
+import AuthContext from '../../store/auth-context';
 import axios from 'axios';
 
 const LoginBox = (props) => {
   const onRegisterHandler = () => {
     props.onRegister();
   };
-
+  const authCtx = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [passwordUnhashed, setPassword] = useState('');
   const [formIsValid, setFormIsValid] = useState(false);
@@ -34,6 +34,7 @@ const LoginBox = (props) => {
     axios.post('/auth/login', { email, passwordUnhashed }).then((resFromDb) => {
       if (resFromDb.data.success) {
         props.onLoginSuccess();
+        authCtx.onLogin();
       }
       if (resFromDb.data.success === false) {
         setError({ msg: resFromDb.data.message });
