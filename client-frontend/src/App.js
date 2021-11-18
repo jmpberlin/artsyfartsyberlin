@@ -113,8 +113,16 @@ function App(props) {
             ></ItemBox>
           )}
         ></Route>
-        <Route component={PaymentSuccess} path='/success' exact></Route>
-        <Route component={PaymentCancel} path='/cancel' exact></Route>
+        <Route
+          component={PaymentSuccess}
+          path='/stripe/order/success'
+          exact
+        ></Route>
+        <Route
+          component={PaymentCancel}
+          path='/stripe/order/cancel'
+          exact
+        ></Route>
       </Switch>
     </div>
   );

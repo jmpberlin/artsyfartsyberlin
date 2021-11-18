@@ -4,7 +4,7 @@ var router = express.Router();
 const Order = require('../models/order.model');
 const User = require('../models/user.model');
 
-const YOUR_DOMAIN = 'http://localhost:4444';
+const YOUR_DOMAIN = process.env.YOUR_DOMAIN;
 
 router.post('/create-checkout-session', async (req, res) => {
   if (
@@ -39,8 +39,8 @@ router.post('/create-checkout-session', async (req, res) => {
           ],
           payment_method_types: ['card', 'sepa_debit', 'sofort'],
           mode: 'payment',
-          success_url: `${YOUR_DOMAIN}/success`,
-          cancel_url: `${YOUR_DOMAIN}/cancel`,
+          success_url: `${YOUR_DOMAIN}/stripe/order/success`,
+          cancel_url: `${YOUR_DOMAIN}/stripe/order/cancel`,
         })
         .then((stripeSession) => {
           // console.log('here comes the session URL:');
