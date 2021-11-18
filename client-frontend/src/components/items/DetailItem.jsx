@@ -6,7 +6,6 @@ import { formatPrice } from '../../Utility/scripts/functions';
 
 const DetailItem = (props) => {
   const onAddHandler = (article) => {
-    console.log(article);
     props.onAddHandler({ item: article, quantity: 1 });
   };
 
