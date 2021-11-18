@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 const Item = require('../models/items.model');
 
-const DB_NAME = 'online-shop';
-
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/online-shop', {
+mongoose.connect(process.env.MONGODB_URI, {
   // useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
