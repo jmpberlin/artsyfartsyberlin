@@ -82,7 +82,7 @@ router.post('/login', (req, res, next) => {
               resFromPromiseAll[0] === null ||
               resFromPromiseAll[1] === null
             ) {
-              console.log('I WAS RUNNING before return ');
+             
               Order.findByIdAndUpdate(cartId, {
                 cartUser: userFromDb._id,
               }).then((resFromDb) => {
@@ -96,13 +96,13 @@ router.post('/login', (req, res, next) => {
               resFromPromiseAll[0] === null ||
               resFromPromiseAll[1] === null
             ) {
-              console.log('I was running after the return ');
+              
               return;
             }
             // if (resFromPromiseAll[0]._id === resFromPromiseAll[1]._id) {
             //   return;
             // }
-            console.log('ran till here 2');
+            // console.log('ran till here 2');
             const newArr = [];
             resFromPromiseAll[1].items.forEach((article) => {
               let articleId = article.item.toString();
@@ -113,7 +113,7 @@ router.post('/login', (req, res, next) => {
                 newArr.push(article);
               }
             });
-            console.log('ran till here 3');
+            // console.log('ran till here 3');
             if (newArr.length > 0) {
               Order.findByIdAndUpdate(
                 resFromPromiseAll[0]._id,
@@ -125,12 +125,12 @@ router.post('/login', (req, res, next) => {
                 { new: true }
               )
                 .then((updatedOrder) => {
-                  console.log('ran till here 4');
+                  // console.log('ran till here 4');
                   return updatedOrder;
                 })
                 .then((updatedOrder) => {
                   req.session.currentOrder = updatedOrder._id;
-                  console.log('ran till here!');
+                  // console.log('ran till here!');
                   Order.findByIdAndDelete(cartId).then((resFromDB) => {
                     res.json({
                       success: true,

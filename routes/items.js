@@ -24,7 +24,7 @@ router.get('/searchBarItems', (req, res, next) => {
 
   Item.find({ name: { $regex: query, $options: 'i' } }).then(
     (foundArticles) => {
-      console.log(foundArticles);
+      // console.log(foundArticles);
       res.json({
         msg: 'everything worked',
         success: 'true',
@@ -137,7 +137,7 @@ router.post('/deleteFromCart', (req, res, next) => {
     },
     { new: true }
   ).then((resFromDb) => {
-    console.log(resFromDb.items.length);
+    // console.log(resFromDb.items.length);
     res.json({
       msg: 'deleted the Item from the Cart',
       success: true,
@@ -170,11 +170,11 @@ router.post(
 
 // UPLOAD DATA FOR NEW ITEM
 router.post('/newItem/dataUpload', (req, res, next) => {
-  console.log('there is req.body');
-  console.log(req.body);
+  // console.log('there is req.body');
+  // console.log(req.body);
   const { name, imgUrl, price, width, height, description } = req.body;
   const articleNumber = uuidv4();
-  console.log(articleNumber);
+  // console.log(articleNumber);
   Item.create({
     name,
     imgUrl,
@@ -218,7 +218,7 @@ router.delete('/deleteItemFromStore/:id', (req, res, next) => {
   );
 });
 router.post('/restoreItem/:id', (req, res, next) => {
-  console.log('Hit the route!');
+  // console.log('Hit the route!');
   if (req.session.currentUser.role !== 'admin') {
     res.json({
       success: false,

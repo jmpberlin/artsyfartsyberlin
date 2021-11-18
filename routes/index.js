@@ -6,7 +6,7 @@ const User = require('../models/user.model');
 /* GET home page. */
 router.get('/checkuser', function (req, res, next) {
   let sessId = req.sessionID;
-  console.log(req.session);
+  // console.log(req.session);
 
   if (req.session.currentUser) {
     Order.findOne({ cartUser: req.session.currentUser._id }).then(

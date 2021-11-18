@@ -43,8 +43,8 @@ router.post('/create-checkout-session', async (req, res) => {
           cancel_url: `${YOUR_DOMAIN}/cancel`,
         })
         .then((stripeSession) => {
-          console.log('here comes the session URL:');
-          console.log(stripeSession.url);
+          // console.log('here comes the session URL:');
+          // console.log(stripeSession.url);
           // res.json({ url: session.url });
           res.redirect(303, stripeSession.url);
         });
@@ -56,7 +56,7 @@ router.post('/create-checkout-session', async (req, res) => {
 const endpointSecret = process.env.ENDPOINT_SECRET_STRIPE;
 
 router.post('/webhook', function (request, response) {
-  console.log('hit the hook!');
+  // console.log('hit the hook!');
   const sig = request.headers['stripe-signature'];
   const body = request.body;
 
