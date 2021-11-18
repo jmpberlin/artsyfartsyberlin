@@ -59,7 +59,7 @@ app.use('/stripe', stripeRoutes);
 
 app.use((req, res, next) => {
   // If no routes match, send them the React HTML.
-  res.sendFile(__dirname + '/client/build/index.html');
+  res.sendFile(__dirname + '/client-frontend/build/index.html');
 });
 
 // catch 404 and forward to error handler
