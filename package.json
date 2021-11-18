@@ -2,6 +2,9 @@
   "name": "online-shop",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": "14.17.3"
+  },
   "scripts": {
     "dev": "DEBUG=project-management:* nodemon ./bin/www",
     "start": "node ./bin/www",
