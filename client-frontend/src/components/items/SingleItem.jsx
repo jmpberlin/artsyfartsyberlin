@@ -23,7 +23,6 @@ const SingleItem = (props) => {
     }
   };
   const onAddHandler = () => {
-    console.log('hit the button!');
     if (quantity > 0) {
       props.addToCard({ item: props.itemObj, quantity: quantity });
       setQuantity(0);

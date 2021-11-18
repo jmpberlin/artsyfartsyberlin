@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
@@ -7,7 +7,6 @@ import reportWebVitals from './reportWebVitals';
 import { AuthContextProvider } from './store/auth-context';
 import axios from 'axios';
 
-console.log('index.js is rerenderin!');
 axios
   .get('/checkuser')
   .then((res) => {

@@ -18,10 +18,9 @@ const SearchBar = (props) => {
       }
     }, 500);
     return () => {
-      console.log('cleanup');
       clearTimeout(searchFieldTimer);
     };
-  }, [searchInput]);
+  }, [searchInput, props]);
 
   const searchbarChangeHandler = (e) => {
     const input = e.target.value;

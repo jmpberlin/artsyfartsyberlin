@@ -1,10 +1,8 @@
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import React, { useState, useEffect, useContext } from 'react';
 import { formatPrice } from '../../Utility/scripts/functions';
-import AuthContext from '../../store/auth-context';
 
 const CartSum = (props) => {
-  const ctx = useContext(AuthContext);
   let sum = 0;
   props.items.forEach((item) => {
     sum += item.item.price * item.quantity;
@@ -12,13 +10,13 @@ const CartSum = (props) => {
   const formattedSum = formatPrice(sum);
   const [showAlert, setShowAlert] = useState(true);
 
-  // useEffect(() => {
-  //   axios.get('/checkuser').then((resFromDb) => {
-  //     if (resFromDb.data.currentUser !== null) {
-  //       setShowAlert(false);
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    axios.get('/isUserLoggedIn').then((resFromDb) => {
+      if (resFromDb.data.loggedIn) {
+        setShowAlert(false);
+      }
+    });
+  }, []);
   // STRIPE DOESNT WORK AS AXIOS REQUEST
   // const checkoutClickHandler = (e) => {
   //   e.preventDefault();

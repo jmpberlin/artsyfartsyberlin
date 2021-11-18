@@ -1,9 +1,11 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import AuthContext from '../../store/auth-context';
 
 import axios from 'axios';
 import ErrorMessage from './ErrorMessage';
 const RegisterBox = (props) => {
+  const authCtx = useContext(AuthContext);
   const onLoginHandler = () => {
     props.onLogin();
   };
@@ -52,6 +54,7 @@ const RegisterBox = (props) => {
         }
         if (resFromBackend.data.success) {
           props.onRegisterSuccess();
+          authCtx.onLogin();
         }
       });
   };
@@ -121,6 +124,51 @@ const RegisterBox = (props) => {
           >
             create account!
           </button>
+          <hr className='m-2' />
+          <div className='text-xs'>
+            <ul className='flex flex-wrap '>
+              <div className='w-1/2'>
+                <li
+                  className={`border m-1 rounded mt-1 p-1 ${
+                    formIsValid ? 'bg-green-100' : ''
+                  }`}
+                >
+                  At least 8 characters
+                </li>
+                <li
+                  className={`border m-1 rounded mt-1 p-1 ${
+                    formIsValid ? 'bg-green-100' : ''
+                  }`}
+                >
+                  one uppercase letter
+                </li>
+
+                <li
+                  className={`border m-1 rounded  mt-1 p-1 ${
+                    formIsValid ? 'bg-green-100' : ''
+                  }`}
+                >
+                  one lowercase letter
+                </li>
+              </div>
+              <div className='w-1/2'>
+                <li
+                  className={`border m-1 rounded  mt-1 p-1 ${
+                    formIsValid ? 'bg-green-100' : ''
+                  }`}
+                >
+                  one number
+                </li>
+                <li
+                  className={`border m-1 rounded mt-1 p-1 ${
+                    formIsValid ? 'bg-green-100' : ''
+                  }`}
+                >
+                  one special character
+                </li>
+              </div>
+            </ul>
+          </div>
         </form>
       </div>
       <div className='borderbox flexwrapper'>

@@ -17,7 +17,7 @@ const DetailItem = (props) => {
     axios.get(`/items/${id}`).then((resFromDb) => {
       setArticle(resFromDb.data.item);
     });
-  }, []);
+  }, [id]);
   if (article === null) {
     return (
       <div className='borderbox flexwrapper flex-col'>

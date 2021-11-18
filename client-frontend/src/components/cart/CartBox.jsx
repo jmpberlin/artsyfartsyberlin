@@ -10,7 +10,6 @@ const CartBox = (props) => {
   const authCtx = useContext(AuthContext);
   useEffect(() => {
     axios.get('/items/userOrder').then((resFromDb) => {
-      console.log(resFromDb);
       if (resFromDb.data === null) {
         return;
       }
@@ -35,7 +34,6 @@ const CartBox = (props) => {
     axios
       .post('/items/deleteFromCart', { articleId: articleId })
       .then((resFromDb) => {
-        console.log(resFromDb);
         props.passCartLenght(resFromDb.data.cartLength);
         setUpdatedCart(!updatedCart);
       });

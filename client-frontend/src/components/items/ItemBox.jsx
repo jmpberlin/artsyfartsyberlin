@@ -1,9 +1,9 @@
 import React from 'react';
-import { useState } from 'react';
+
 import SingleItem from './SingleItem';
 
 const ItemBox = (props) => {
-  const [allItems, setAllItems] = useState(props.articles);
+  // const [allItems, setAllItems] = useState(props.articles);
   // useEffect(() => {
   //   axios.get('/items/allItems').then((resFromDb) => {
   //     setAllItems(resFromDb.data);
@@ -12,7 +12,7 @@ const ItemBox = (props) => {
   const addToCartHandler = (itemToAdd) => {
     props.addToCart(itemToAdd);
   };
-  if (allItems.length === 0) {
+  if (props.articles.length === 0) {
     return (
       <div className='borderbox flexwrapper flex-col'>
         {props.show && <h1> ... no articles found! </h1>}
@@ -31,7 +31,7 @@ const ItemBox = (props) => {
   }
   return (
     <div className='m-4 flexwrapper flex-col'>
-      {allItems.map((item) => {
+      {props.articles.map((item) => {
         return (
           <SingleItem
             addToCard={addToCartHandler}
