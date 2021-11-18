@@ -46,6 +46,7 @@ const cors = require('cors');
 app.use(cors());
 
 app.use('/', indexRouter);
+
 app.use('/users', usersRouter);
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
@@ -55,6 +56,12 @@ app.use('/api/items', itemsRoutes);
 
 const stripeRoutes = require('./routes/stripe');
 app.use('/stripe', stripeRoutes);
+
+app.use((req, res, next) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + '/client/build/index.html');
+});
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -69,11 +76,6 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
-
-app.use((req, res, next) => {
-  // If no routes match, send them the React HTML.
-  res.sendFile(__dirname + '/client/build/index.html');
 });
 
 module.exports = app;
