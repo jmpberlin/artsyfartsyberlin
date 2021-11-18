@@ -51,7 +51,7 @@ const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 
 const itemsRoutes = require('./routes/items');
-app.use('/items', itemsRoutes);
+app.use('/api/items', itemsRoutes);
 
 const stripeRoutes = require('./routes/stripe');
 app.use('/stripe', stripeRoutes);

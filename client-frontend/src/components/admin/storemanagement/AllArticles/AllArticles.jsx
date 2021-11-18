@@ -15,7 +15,7 @@ const AllArticles = () => {
   let yesButton = "Yes, I'm sure!";
   let noButton = 'No, go back!';
   useEffect(() => {
-    axios.get('/items/admin/getAllItems').then((resFromDb) => {
+    axios.get('/api/items/admin/getAllItems').then((resFromDb) => {
       setItemsArr(resFromDb.data.items);
     });
   }, [reloadTrigger]);
@@ -41,13 +41,15 @@ const AllArticles = () => {
     setItemToHandle(null);
   };
   const onDeleteItem = (item) => {
-    axios.delete(`/items/deleteItemFromStore/${item._id}`).then((resFromDb) => {
-      console.log(resFromDb);
-      setReloadTrigger(!reloadTrigger);
-    });
+    axios
+      .delete(`/api/items/deleteItemFromStore/${item._id}`)
+      .then((resFromDb) => {
+        console.log(resFromDb);
+        setReloadTrigger(!reloadTrigger);
+      });
   };
   const onRestoreItem = (item) => {
-    axios.post(`/items/restoreItem/${item._id}`).then((resFromDb) => {
+    axios.post(`/api/items/restoreItem/${item._id}`).then((resFromDb) => {
       setReloadTrigger(!reloadTrigger);
     });
   };

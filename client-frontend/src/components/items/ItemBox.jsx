@@ -5,7 +5,7 @@ import SingleItem from './SingleItem';
 const ItemBox = (props) => {
   // const [allItems, setAllItems] = useState(props.articles);
   // useEffect(() => {
-  //   axios.get('/items/allItems').then((resFromDb) => {
+  //   axios.get('/api/items/allItems').then((resFromDb) => {
   //     setAllItems(resFromDb.data);
   //   });
   // }, []);

@@ -11,7 +11,7 @@ const SearchBar = (props) => {
     const searchFieldTimer = setTimeout(() => {
       if (searchInput !== null) {
         axios
-          .get(`/items/searchBarItems?search=${searchInput}`)
+          .get(`/api/items/searchBarItems?search=${searchInput}`)
           .then((resFromDb) => {
             props.receiveArticlesFromSearch(resFromDb.data.articles);
           });

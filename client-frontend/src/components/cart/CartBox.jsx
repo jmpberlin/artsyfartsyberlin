@@ -8,7 +8,7 @@ const CartBox = (props) => {
   const [updatedCart, setUpdatedCart] = useState(true);
 
   useEffect(() => {
-    axios.get('/items/userOrder').then((resFromDb) => {
+    axios.get('/api/items/userOrder').then((resFromDb) => {
       if (resFromDb.data === null) {
         return;
       }
@@ -20,18 +20,22 @@ const CartBox = (props) => {
     });
   }, [updatedCart]);
   const decreaseQuantity = (obj) => {
-    axios.post('/items/setQuantityOfCartItem', { obj }).then((resFromDb) => {
-      setUpdatedCart(!updatedCart);
-    });
+    axios
+      .post('/api/items/setQuantityOfCartItem', { obj })
+      .then((resFromDb) => {
+        setUpdatedCart(!updatedCart);
+      });
   };
   const increaseQuantity = (obj) => {
-    axios.post('/items/setQuantityOfCartItem', { obj }).then((resFromDb) => {
-      setUpdatedCart(!updatedCart);
-    });
+    axios
+      .post('/api/items/setQuantityOfCartItem', { obj })
+      .then((resFromDb) => {
+        setUpdatedCart(!updatedCart);
+      });
   };
   const deleteHandler = (articleId) => {
     axios
-      .post('/items/deleteFromCart', { articleId: articleId })
+      .post('/api/items/deleteFromCart', { articleId: articleId })
       .then((resFromDb) => {
         props.passCartLenght(resFromDb.data.cartLength);
         setUpdatedCart(!updatedCart);

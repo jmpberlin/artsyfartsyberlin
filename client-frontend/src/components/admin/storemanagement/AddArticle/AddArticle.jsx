@@ -27,11 +27,11 @@ const AddArticle = (props) => {
     const uploadData = new FormData();
     uploadData.append('imageUrl', profilePic);
 
-    axios.post(`/items/newItem/picUpload`, uploadData).then((resp) => {
+    axios.post(`/api/items/newItem/picUpload`, uploadData).then((resp) => {
       if (resp.data.success) {
         axios
           .post(
-            '/items/newItem/dataUpload',
+            '/api/items/newItem/dataUpload',
             {
               imgUrl: resp.data.picUrl,
               name: articleName,

@@ -22,7 +22,7 @@ function App(props) {
     setItemCartCount(cartLength);
   };
   useEffect(() => {
-    axios.get('/items/allItems').then((resFromDb) => {
+    axios.get('/api/items/allItems').then((resFromDb) => {
       setAllItems(resFromDb.data);
     });
   }, []);
@@ -37,7 +37,7 @@ function App(props) {
       .then((userFromBefore) => {
         // HERE COMES THE ROUTE FOR SAVING SOMETHING IN AN ORDER
 
-        axios.post('/items/addToOrder', itemToAdd).then((resFromDb) => {
+        axios.post('/api/items/addToOrder', itemToAdd).then((resFromDb) => {
           setItemCartCount(resFromDb.data.cartLength);
         });
       });

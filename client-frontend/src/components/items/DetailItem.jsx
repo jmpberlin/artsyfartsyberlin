@@ -13,7 +13,7 @@ const DetailItem = (props) => {
 
   const [article, setArticle] = useState(null);
   useEffect(() => {
-    axios.get(`/items/${id}`).then((resFromDb) => {
+    axios.get(`/api/items/${id}`).then((resFromDb) => {
       setArticle(resFromDb.data.item);
     });
   }, []);
