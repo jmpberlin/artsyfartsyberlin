@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
 const SearchBar = (props) => {
+  console.log(props);
   const [searchInput, setSearchInput] = useState(null);
   const onShowFilterBar = () => {
     props.showFilter();
@@ -20,7 +21,7 @@ const SearchBar = (props) => {
     return () => {
       clearTimeout(searchFieldTimer);
     };
-  }, [searchInput, props]);
+  }, [searchInput]);
 
   const searchbarChangeHandler = (e) => {
     const input = e.target.value;
