@@ -5,7 +5,7 @@ module.exports = {
     './src/components/UI/*.{js,jsx,ts,tsx}',
     './public/index.html',
   ],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'class', // or 'media' or 'class' before false
   theme: {
     extend: {},
   },
