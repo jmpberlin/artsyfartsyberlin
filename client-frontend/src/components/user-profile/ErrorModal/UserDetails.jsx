@@ -10,16 +10,20 @@ const UserDetails = (props) => {
   const [previewUrl, setPreviewUrl] = useState(null);
 
   // CHANGE YOUR NAME FORM :
-  const [firstName, setFirstName] = useState(null);
-  const [lastName, setLastName] = useState(null);
+  const [firstName, setFirstName] = useState(props.user.firstName);
+  const [lastName, setLastName] = useState(props.user.lastName);
 
   // CHANGE YOUR SHIPPING ADDRESS FORM:
-  const [addressName, setAddressName] = useState(null);
-  const [streetName, setStreetName] = useState(null);
-  const [streetNumber, setStreetNumber] = useState(null);
-  const [postalCode, setPostalCode] = useState(null);
-  const [country, setCountry] = useState(null);
-  const [city, setCity] = useState(null);
+  const [addressName, setAddressName] = useState(
+    props.user.address.addressName
+  );
+  const [streetName, setStreetName] = useState(props.user.address.streetName);
+  const [streetNumber, setStreetNumber] = useState(
+    props.user.address.streetNumber
+  );
+  const [postalCode, setPostalCode] = useState(props.user.address.postalCode);
+  const [country, setCountry] = useState(props.user.address.country);
+  const [city, setCity] = useState(props.user.address.city);
 
   const addressInputHandler = (e) => {
     const name = e.target.name;
