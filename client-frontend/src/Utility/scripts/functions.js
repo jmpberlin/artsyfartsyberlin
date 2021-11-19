@@ -1,6 +1,11 @@
 export function formatPrice(cents) {
   if (cents % 10 === 0) {
-    return cents / 100 + '.00 €';
+    const divided = cents / 100;
+    if (divided % 1 !== 0) {
+      return cents / 100 + '0 €';
+    } else {
+      return cents / 100 + '.00 €';
+    }
   } else {
     return cents / 100 + ' €';
   }
