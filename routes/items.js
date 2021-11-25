@@ -43,7 +43,6 @@ router.post('/addToOrder', (req, res, next) => {
       (e) => e.item.toString() === itemId
     );
     if (indexOfArt === -1) {
-      // TEST LINE
       Order.findByIdAndUpdate(
         orderId,
         {
@@ -69,7 +68,7 @@ router.post('/addToOrder', (req, res, next) => {
         { new: true }
       ).then((resFromDb) => {
         res.json({
-          msg: 'Article existed before, changed the quantity', 
+          msg: 'Article existed before, changed the quantity',
           success: true,
           cartLength: resFromDb.items.length,
         });
