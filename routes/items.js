@@ -24,7 +24,7 @@ router.get('/searchBarItems', (req, res, next) => {
 
   Item.find({ name: { $regex: query, $options: 'i' } }).then(
     (foundArticles) => {
-      // console.log(foundArticles);
+     
       res.json({
         msg: 'everything worked',
         success: 'true',
@@ -33,6 +33,7 @@ router.get('/searchBarItems', (req, res, next) => {
     }
   );
 });
+
 /// ADD TO DB ORDER ROUTE!!
 
 router.post('/addToOrder', (req, res, next) => {

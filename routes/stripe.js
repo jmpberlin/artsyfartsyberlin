@@ -56,7 +56,7 @@ router.post('/create-checkout-session', async (req, res) => {
 const endpointSecret = process.env.ENDPOINT_SECRET_STRIPE;
 
 router.post('/webhook', function (request, response) {
-  // console.log('hit the hook!');
+  console.log('hit the hook!');
   const sig = request.headers['stripe-signature'];
   const body = request.body;
 
@@ -66,7 +66,7 @@ router.post('/webhook', function (request, response) {
     event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
   } catch (err) {
     // invalid signature
-    console.log('this is the Error:   ======>>>>>>>> EEEERRRROOOOOORRR', err);
+    console.log('this is the Error:   ======>>>>>>>> ', err);
     response.status(400).end();
     return;
   }
