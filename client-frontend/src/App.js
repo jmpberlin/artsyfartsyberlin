@@ -28,19 +28,9 @@ function App(props) {
   }, []);
   const addToCartHandler = (itemToAdd) => {
     setPassedItem({ itemToAdd });
-
-    axios
-      .get('/checkuser')
-      .then((receivedUser) => {
-        return receivedUser;
-      })
-      .then((userFromBefore) => {
-        // HERE COMES THE ROUTE FOR SAVING SOMETHING IN AN ORDER
-
-        axios.post('/api/items/addToOrder', itemToAdd).then((resFromDb) => {
-          setItemCartCount(resFromDb.data.cartLength);
-        });
-      });
+    axios.post('/api/items/addToOrder', itemToAdd).then((resFromDb) => {
+      setItemCartCount(resFromDb.data.cartLength);
+    });
   };
   const passStripeUrlHandler = (url) => {
     console.log('this is the Stripe Url in the App component ');

@@ -8,8 +8,13 @@ import { Link } from 'react-router-dom';
 const AccountMenu = (props) => {
   const [user, setUser] = useState(null);
   useEffect(() => {
-    axios.get('/checkuser').then((resFromDb) => {
-      setUser(resFromDb.data.currentUser);
+    axios.get('/api/isUserLoggedIn').then((resFromDb) => {
+      console.log(resFromDb);
+      if (resFromDb.data.loggedIn) {
+        setUser(resFromDb.data.user);
+      } else {
+        setUser(null);
+      }
     });
   }, []);
 
@@ -41,15 +46,13 @@ const AccountMenu = (props) => {
           Settings
         </button>
       </Link>
-      {user.role === 'admin' ? (
+      {user.role === 'admin' && (
         <Link to={`/users/${user._id}/manageStore`}>
           <button className='gradient text-xs p-2 sm:p-3 md:p-4'>
             Manage Store
           </button>
         </Link>
-      ) : (
-        <h1>Hallo</h1>
-      )}
+      ) }
     </div>
   );
 };

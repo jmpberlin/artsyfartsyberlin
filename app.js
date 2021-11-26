@@ -45,7 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const cors = require('cors');
 app.use(cors());
 
-app.use('/', indexRouter);
+app.use('/api/', indexRouter);
 
 app.use('/users', usersRouter);
 const authRoutes = require('./routes/auth');

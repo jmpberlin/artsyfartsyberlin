@@ -26,7 +26,6 @@ const userSchema = new Schema({
     country: { type: String, default: '' },
     city: { type: String, default: '' },
   },
-  shoppingCart: [],
   profileUrl: String,
 });
 

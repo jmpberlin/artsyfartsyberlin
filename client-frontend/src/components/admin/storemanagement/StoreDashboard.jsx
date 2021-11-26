@@ -9,7 +9,7 @@ const StoreDashboard = (props) => {
   //   const userId = props.match.params.id;
   const [user, setUser] = useState(null);
   useEffect(() => {
-    axios.get('/isUserLoggedIn').then((resFromDb) => {
+    axios.get('/api/isUserLoggedIn').then((resFromDb) => {
       setUser(resFromDb.data.user);
     });
   }, []);

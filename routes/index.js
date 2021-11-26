@@ -4,10 +4,11 @@ const Order = require('../models/order.model');
 const User = require('../models/user.model');
 
 /* GET home page. */
-router.get('/checkuser', function (req, res, next) {
-  let sessId = req.sessionID;
-  // console.log(req.session);
 
+router.get('/checkForOrder', function (req, res, next) {
+  let sessId = req.sessionID;
+
+  // CHECK IF USER IS LOGGED IN
   if (req.session.currentUser) {
     Order.findOne({ cartUser: req.session.currentUser._id }).then(
       (resFromDb) => {
@@ -17,6 +18,8 @@ router.get('/checkuser', function (req, res, next) {
       }
     );
   }
+
+  // IF USER IS NOT LOGGED IN, CHECK FOR AN EXISTING ORDER
   if (!req.session.currentUser) {
     Order.findOne({ cartSession: sessId })
       .then((answerFromDb) => {
@@ -29,27 +32,23 @@ router.get('/checkuser', function (req, res, next) {
           }).then((resFromDb) => {
             req.session.currentOrder = resFromDb._id;
             req.session.save();
+            res.json({ currentUser: null });
           });
-        }
-        if (answerFromDb !== null) {
+        } else {
           req.session.currentOrder = answerFromDb._id;
           req.session.save();
+          res.json({ currentUser: null });
         }
       })
       .catch((err) => console.log('there has been an error, ', err));
-    if (req.session.currentUser) {
-      res.json({ currentUser: req.session.currentUser });
-    } else {
-      res.json({ currentUser: null });
-    }
   }
 });
 
 router.get('/isUserLoggedIn', (req, res, next) => {
   if (req.session.currentUser) {
     User.findById(req.session.currentUser._id)
-      .then((updatedUser) => {
-        res.json({ loggedIn: true, user: updatedUser });
+      .then((userFromDb) => {
+        res.json({ loggedIn: true, user: userFromDb });
       })
       .catch((err) =>
         console.log('there was an error in the isLoggedIn-Route ', err)

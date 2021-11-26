@@ -11,7 +11,7 @@ const CartSum = (props) => {
   const [showAlert, setShowAlert] = useState(true);
 
   useEffect(() => {
-    axios.get('/isUserLoggedIn').then((resFromDb) => {
+    axios.get('/api/isUserLoggedIn').then((resFromDb) => {
       if (resFromDb.data.loggedIn) {
         setShowAlert(false);
       }

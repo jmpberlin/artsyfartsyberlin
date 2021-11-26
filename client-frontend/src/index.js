@@ -8,7 +8,7 @@ import { AuthContextProvider } from './store/auth-context';
 import axios from 'axios';
 
 axios
-  .get('/checkuser')
+  .get('/api/checkForOrder')
   .then((res) => {
     ReactDOM.render(
       <Router>
@@ -20,7 +20,7 @@ axios
     );
   })
   .catch((err) => {
-    alert('backend not running or /checkuser route not defined !');
+    alert('backend not running!');
   });
 
 // If you want to start measuring performance in your app, pass a function

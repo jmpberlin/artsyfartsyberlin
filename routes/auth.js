@@ -63,26 +63,10 @@ router.post('/login', (req, res, next) => {
         // THIS IS THE MERGE OF OLD AND NEW CART!
         Promise.all([alreadyExistentOrder, newlyCreatedOrder]).then(
           (resFromPromiseAll) => {
-            // console.log('ran till here! 1 ');
-            // console.log(
-            //   'this is the first answer - should be already existing Order: '
-            // );
-            // console.log(resFromPromiseAll[0]);
-            // console.log(
-            //   'this is the second Answer - should be the new Order :'
-            // );
-            // console.log(resFromPromiseAll[1]);
-            // console.log(
-            //   'this is the log of an Id to see, if it has to be parsed: '
-            // );
-            // console.log(resFromPromiseAll[0].items[0].item);
-            // console.log(resFromPromiseAll[0].items[0].item.toString());
-
             if (
               resFromPromiseAll[0] === null ||
               resFromPromiseAll[1] === null
             ) {
-             
               Order.findByIdAndUpdate(cartId, {
                 cartUser: userFromDb._id,
               }).then((resFromDb) => {
@@ -96,13 +80,9 @@ router.post('/login', (req, res, next) => {
               resFromPromiseAll[0] === null ||
               resFromPromiseAll[1] === null
             ) {
-              
               return;
             }
-            // if (resFromPromiseAll[0]._id === resFromPromiseAll[1]._id) {
-            //   return;
-            // }
-            // console.log('ran till here 2');
+
             const newArr = [];
             resFromPromiseAll[1].items.forEach((article) => {
               let articleId = article.item.toString();
@@ -113,7 +93,7 @@ router.post('/login', (req, res, next) => {
                 newArr.push(article);
               }
             });
-            // console.log('ran till here 3');
+
             if (newArr.length > 0) {
               Order.findByIdAndUpdate(
                 resFromPromiseAll[0]._id,
@@ -125,12 +105,11 @@ router.post('/login', (req, res, next) => {
                 { new: true }
               )
                 .then((updatedOrder) => {
-                  // console.log('ran till here 4');
                   return updatedOrder;
                 })
                 .then((updatedOrder) => {
                   req.session.currentOrder = updatedOrder._id;
-                  // console.log('ran till here!');
+
                   Order.findByIdAndDelete(cartId).then((resFromDB) => {
                     res.json({
                       success: true,
@@ -149,7 +128,7 @@ router.post('/login', (req, res, next) => {
             }
           }
         );
-        //
+        // IF PASSWORD IS WRONG SET CURRRENTUSER TO UNDEFINED
       } else {
         req.session.currentUser = undefined;
         res.json({
@@ -163,9 +142,9 @@ router.post('/login', (req, res, next) => {
         success: false,
         message: 'Email or Password is wrong. Try Again!',
       });
-      console.log('this is the error: ', err);
     });
 });
+
 router.get('/logout', (req, res, next) => {
   Order.findByIdAndUpdate(req.session.currentOrder, {
     cartSession: null,
