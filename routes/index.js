@@ -6,6 +6,7 @@ const User = require('../models/user.model');
 /* GET home page. */
 
 router.get('/checkForOrder', function (req, res, next) {
+  /// COULD COMBINE BOTH INDEX ROUTES TO CHECK FOR ORDER AND USER
   let sessId = req.sessionID;
 
   // CHECK IF USER IS LOGGED IN
