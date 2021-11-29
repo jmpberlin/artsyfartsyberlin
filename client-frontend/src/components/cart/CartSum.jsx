@@ -17,17 +17,7 @@ const CartSum = (props) => {
       }
     });
   }, []);
-  // STRIPE DOESNT WORK AS AXIOS REQUEST
-  // const checkoutClickHandler = (e) => {
-  //   e.preventDefault();
 
-  //   axios
-  //     .post('/stripe/create-checkout-session', { price: sum })
-  //     .then((resFromStripe) => {
-  //       console.log(resFromStripe.data.url);
-  //       props.passStripeUrl(resFromStripe.data.url);
-  //     });
-  // };
   return (
     <>
       <div className='borderbox flexwrapper flex-col'>

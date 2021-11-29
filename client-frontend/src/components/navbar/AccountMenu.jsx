@@ -2,14 +2,12 @@ import axios from 'axios';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import spinner from './spinner.gif';
-
 import { Link } from 'react-router-dom';
 
 const AccountMenu = (props) => {
   const [user, setUser] = useState(null);
   useEffect(() => {
     axios.get('/api/isUserLoggedIn').then((resFromDb) => {
-      console.log(resFromDb);
       if (resFromDb.data.loggedIn) {
         setUser(resFromDb.data.user);
       } else {
@@ -52,7 +50,7 @@ const AccountMenu = (props) => {
             Manage Store
           </button>
         </Link>
-      ) }
+      )}
     </div>
   );
 };
