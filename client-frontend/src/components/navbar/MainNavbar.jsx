@@ -15,6 +15,7 @@ const MainNavbar = (props) => {
   const [showAccount, setShowAccount] = useState(false);
   const [showFilterComponent, setShowFilterComponent] = useState(false);
 
+  // here goes the new logic
   const loginClickHanlder = () => {
     if (loggedInUser) {
       setShowAccount(!showAccount);
