@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const LoginBox = (props) => {
   const onRegisterHandler = () => {
-    props.onRegister();
+    props.showRegister(3);
   };
   const authCtx = useContext(AuthContext);
   const [email, setEmail] = useState('');

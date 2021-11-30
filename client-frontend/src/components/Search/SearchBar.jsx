@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 const SearchBar = (props) => {
   const [searchInput, setSearchInput] = useState(null);
   const onShowFilterBar = () => {
-    props.showFilter();
+    props.showFilter(1);
   };
 
   useEffect(() => {
