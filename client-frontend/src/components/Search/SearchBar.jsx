@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
 const SearchBar = (props) => {
-  console.log(props);
   const [searchInput, setSearchInput] = useState(null);
   const onShowFilterBar = () => {
     props.showFilter();

@@ -14,7 +14,7 @@ const MainNavbar = (props) => {
   const [loggedInUser, setLoggedInUser] = useState(props.currentUser);
   const [showAccount, setShowAccount] = useState(false);
   const [showFilterComponent, setShowFilterComponent] = useState(false);
-  // const [searchInput, setSearchInput] = useState(null);
+
   const loginClickHanlder = () => {
     if (loggedInUser) {
       setShowAccount(!showAccount);
@@ -40,6 +40,7 @@ const MainNavbar = (props) => {
     setUserlogin(false);
     setUserRegister(false);
   };
+
   const onLogoutHandler = () => {
     setLoggedInUser(undefined);
     setShowAccount(false);
@@ -49,6 +50,7 @@ const MainNavbar = (props) => {
     setUserlogin(false);
   };
 
+  // Show and Hide Filter Bar
   const onCloseFilterBar = () => {
     setShowFilterComponent(false);
   };
@@ -59,7 +61,7 @@ const MainNavbar = (props) => {
     props.receiveArticlesFromNavbar(articles);
   };
   return (
-    <div >
+    <div>
       <div className='border border-black rounded p-2 m-2 text-center'>
         <div className='flex justify-evenly items-center asad flex-row mb-2'>
           <div>

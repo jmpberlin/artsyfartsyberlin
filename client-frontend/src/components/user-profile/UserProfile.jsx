@@ -12,7 +12,7 @@ const UserProfile = (props) => {
     setError(false);
   };
   const refreshHandler = () => {
-    axios.get('/isUserLoggedIn').then((resFromDb) => {
+    axios.get('/api/isUserLoggedIn').then((resFromDb) => {
       if (resFromDb.data.loggedIn) {
         setUser((prevState) => {
           return resFromDb.data.user;
@@ -25,7 +25,7 @@ const UserProfile = (props) => {
   };
 
   useEffect(() => {
-    axios.get('/isUserLoggedIn').then((resFromDb) => {
+    axios.get('/api/isUserLoggedIn').then((resFromDb) => {
       if (resFromDb.data.loggedIn) {
         setUser((prevState) => {
           return resFromDb.data.user;

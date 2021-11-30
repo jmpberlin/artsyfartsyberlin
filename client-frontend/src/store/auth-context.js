@@ -18,7 +18,7 @@ export const AuthContextProvider = (props) => {
     setIsLoggedIn(false);
   };
   useEffect(() => {
-    axios.get('/isUserLoggedIn').then((resFromDb) => {
+    axios.get('/api/isUserLoggedIn').then((resFromDb) => {
       if (resFromDb.data.success) {
         setIsLoggedIn(true);
       } else {

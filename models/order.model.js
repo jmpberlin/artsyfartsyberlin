@@ -9,43 +9,19 @@
 
 const { Schema, model } = require('mongoose');
 const orderSchema = new Schema({
-  cartUser: { type: Schema.Types.ObjectId, ref: 'User' },
+  cartUser: { type: Schema.Types.ObjectId, ref: 'User', default: null },
   cartSession: String,
   paid: Boolean,
   items: [
     {
       item: { type: Schema.Types.ObjectId, ref: 'Item' },
       quantity: Number,
-      _id: false,
+      _id: false, // MongoDB should not create another ID here!
     },
   ],
   status: String,
+  active: { type: Boolean, default: true },
   stripe: { payment_intent: String, payment_status: String },
-
-  // passwordHash: {
-  //   type: String,
-  //   required: [true, 'PasswordHash is required!'],
-  // },
-  // email: {
-  //   type: String,
-  //   match: [/^\S+@\S+\.\S+$/, 'Please use a valid email address.'],
-  //   required: [true, 'Email is required.'],
-  //   unique: true,
-  //   lowercase: true,
-  //   trim: true,
-  // },
-  // image: String,
-  // firstName: { type: String, default: '' },
-  // lastName: { type: String, default: '' },
-  // address: {
-  //   addressName: { type: String, default: '' },
-  //   streetName: { type: String, default: '' },
-  //   streetNumber: { type: Number, default: 0 },
-  //   postalCode: { type: String, lenght: 5, default: '' },
-  //   country: { type: String, default: '' },
-  //   city: { type: String, default: '' },
-  // },
-  // shoppingCart: [],
   archive: { type: String, default: 'false' },
 });
 
