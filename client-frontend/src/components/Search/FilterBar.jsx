@@ -2,7 +2,7 @@ import React from 'react';
 
 const FilterBar = (props) => {
   const onCloseHandler = () => {
-    props.closeFilterBar();
+    props.closeFilterBar(0);
   };
   return (
     <div>

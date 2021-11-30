@@ -7,7 +7,7 @@ import ErrorMessage from './ErrorMessage';
 const RegisterBox = (props) => {
   const authCtx = useContext(AuthContext);
   const onLoginHandler = () => {
-    props.onLogin();
+    props.showLogin(2);
   };
   // storing the Input
   const [email, setEmail] = useState('');

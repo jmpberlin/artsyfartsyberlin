@@ -9,54 +9,32 @@ import FilterBar from '../Search/FilterBar';
 import SearchBar from '../Search/SearchBar';
 
 const MainNavbar = (props) => {
-  const [userLogin, setUserlogin] = useState(false);
-  const [userRegister, setUserRegister] = useState(false);
-  const [loggedInUser, setLoggedInUser] = useState(props.currentUser);
-  const [showAccount, setShowAccount] = useState(false);
-  const [showFilterComponent, setShowFilterComponent] = useState(false);
+  // selectedTopic holds the box, that is going to be displayed, depending on numbers
+  const [selectedTopic, setSelectedTopic] = useState(0);
+  // this state holds the information for the button, if the user is logged in
+  const [loggedIn, setLoggedIn] = useState(props.currentUser);
 
-  // here goes the new logic
-  const loginClickHanlder = () => {
-    if (loggedInUser) {
-      setShowAccount(!showAccount);
-      return;
-    }
+  //this function handles all menu clicks
 
-    setUserlogin(!userLogin);
-
-    if (userRegister) {
-      setUserRegister(false);
+  const menuHandler = (topicNum) => {
+    if (selectedTopic === topicNum) {
+      setSelectedTopic(0);
+    } else {
+      setSelectedTopic(topicNum);
     }
   };
-  const onRegisterHandler = () => {
-    setUserRegister(true);
-    setUserlogin(false);
-  };
-  const onLoginHandler = () => {
-    setUserRegister(false);
-    setUserlogin(true);
-  };
+  // ON REGISTER, LOGIN OR LOGOUT THESE THREE HANDLERS ARE BEING CALLED
   const onRegisterSuccessHandler = () => {
-    setLoggedInUser(true);
-    setUserlogin(false);
-    setUserRegister(false);
+    menuHandler(0);
+    setLoggedIn(true);
   };
-
   const onLogoutHandler = () => {
-    setLoggedInUser(undefined);
-    setShowAccount(false);
+    setLoggedIn(false);
+    menuHandler(0);
   };
   const loginSuccessHandler = () => {
-    setLoggedInUser(true);
-    setUserlogin(false);
-  };
-
-  // Show and Hide Filter Bar
-  const onCloseFilterBar = () => {
-    setShowFilterComponent(false);
-  };
-  const onShowFilterHandler = () => {
-    setShowFilterComponent(true);
+    menuHandler(0);
+    setLoggedIn(true);
   };
   const receiveArticlesFromSearchHandler = (articles) => {
     props.receiveArticlesFromNavbar(articles);
@@ -75,15 +53,21 @@ const MainNavbar = (props) => {
             </Link>
           </div>
           <SearchBar
-            showFilter={onShowFilterHandler}
+            showFilter={menuHandler}
             receiveArticlesFromSearch={receiveArticlesFromSearchHandler}
           ></SearchBar>
           <div>
             <button
-              onClick={loginClickHanlder}
+              onClick={() => {
+                if (!loggedIn) {
+                  menuHandler(2);
+                } else {
+                  menuHandler(4);
+                }
+              }}
               className='bg-gray-400 rounded hover:bg-gray-400 p-2 sm:p-3 md:p-4'
             >
-              {loggedInUser ? `Account` : 'log In'}
+              {loggedIn ? `Account` : 'log In'}
             </button>
           </div>
           <div>
@@ -102,21 +86,23 @@ const MainNavbar = (props) => {
           <p>...your no.1 Art-Shop!</p>
         </div>
       </div>
-      {userLogin && (
+      {selectedTopic === 1 && (
+        <FilterBar closeFilterBar={menuHandler}></FilterBar>
+      )}
+      {selectedTopic === 2 && (
         <LoginBox
-          onRegister={onRegisterHandler}
+          showRegister={menuHandler}
           onLoginSuccess={loginSuccessHandler}
         ></LoginBox>
       )}
-      {userRegister && (
+      {selectedTopic === 3 && (
         <RegisterBox
-          onLogin={onLoginHandler}
+          showLogin={menuHandler}
           onRegisterSuccess={onRegisterSuccessHandler}
         ></RegisterBox>
       )}
-      {showAccount && <AccountMenu onLogout={onLogoutHandler}></AccountMenu>}
-      {showFilterComponent && (
-        <FilterBar closeFilterBar={onCloseFilterBar}></FilterBar>
+      {selectedTopic === 4 && (
+        <AccountMenu onLogout={onLogoutHandler}></AccountMenu>
       )}
     </div>
   );
